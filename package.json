@@ -10,8 +10,9 @@
     "chrome-launcher": "^0.10.2",
     "cli-progress": "^2.0.0",
     "commander": "^2.17.0",
+    "csv-load-sync": "^1.0.0",
     "csvtojson": "^2.0.6",
-    "glob-promise": "^3.4.0",
+    "glob": "^7.1.2",
     "lighthouse": "^3.0.1"
   },
   "devDependencies": {

@@ -1,36 +1,37 @@
 const fs = require("fs");
-const csvtojson = require("csvtojson");
-const glob = require("glob-promise");
+const csvSync = require('csv-load-sync');
+const glob = require("glob");
 
 /**
  * configのcsvファイルを読み出して、lighthouse実行対象オブジェクトのリストを返す
  * @function readConfig
  * @return {Promise<Config>}
  */
-exports.readConfig = function(configFilePath){
+function readConfig(configFilePath){
   const {chromeNum=2, targets=[], targetFiles=[], reporters=[]} = require(configFilePath);
-  return getTargetList(targetFiles).then((targetsFromFiles) =>  {
-    return { 
-      reporters,
-      chromeNum,
-      targets: [...targets, ...targetsFromFiles]
-    }
-  })
+  const targetsFromFiles = getTargetList(targetFiles);
+  return { 
+    reporters,
+    chromeNum,
+    targets: [...targets, ...targetsFromFiles]
+  };
 }
 
 function getTargetList(targetConfigPathPatterns){
-  return Promise.all(targetConfigPathPatterns.map(glob))
-    .then((targetConfigLists) => targetConfigLists.reduce((acc, targetConfigList) => [...acc, ...targetConfigList], []))
-    .then((targetConfigList) => Promise.all(targetConfigList.map(loadTargetList)))
-    .then((targetLists) => {
-      return targetLists.reduce((acc, targetList) => [...acc, ...targetList], [])
-    });
+  return targetConfigPathPatterns.map((pattern) => glob.sync(pattern))
+    .reduce((acc, targetConfigList) => [...acc, ...targetConfigList], [])
+    .map(loadTargetList)
+    .reduce((acc, targetList) => [...acc, ...targetList], []);
 }
 
 function loadTargetList(targetConfigPath){
-  const stream = fs.createReadStream(targetConfigPath);
-  return csvtojson().fromStream(stream);
+  return csvSync(targetConfigPath);
 };
+
+module.exports = {
+  readConfig,
+  getTargetList
+}
 
 /**
  * lighthouse実行設定

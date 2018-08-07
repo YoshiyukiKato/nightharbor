@@ -10,7 +10,7 @@ cli
   .parse(process.argv);
 
 const configFilePath = path.resolve(process.cwd(), !!cli.config ? cli.config : "./perf.config.js");
-readConfig(configFilePath)
-  .then(collectPerf)
+const config = readConfig(configFilePath);
+collectPerf(config)
   .then()
   .catch(console.error);
