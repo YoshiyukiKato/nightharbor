@@ -1,4 +1,4 @@
-const lighthouseConfig = require("./config/lighthouse-config");
+const defaultLighthouseConfig = require("./config/lighthouse-config");
 const lighthouse = require("lighthouse");
 
 /**
@@ -6,17 +6,17 @@ const lighthouse = require("lighthouse");
  * @param {Context} context 
  * @param {Chrome} chrome
  */
-function execLighthouse(context, chrome) {
+function execLighthouse(lighthouseConfig, context, chrome) {
   const opts = {
     port: chrome.port
   }
-
   const target = context.getNextTarget();
+
   if (!!target) {
     return lighthouse(target.url, opts, lighthouseConfig)
       .then((result) => {
         context.addReport(target, result);
-        return execLighthouse(context, chrome);
+        return execLighthouse(lighthouseConfig, context, chrome);
       })
       .catch((err) => {
         return chrome.kill().then(() => {

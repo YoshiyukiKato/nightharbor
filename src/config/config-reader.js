@@ -1,5 +1,5 @@
-const fs = require("fs");
 const csvSync = require('csv-load-sync');
+const defaultConfig = require("./default-config");
 const glob = require("glob");
 
 /**
@@ -7,12 +7,23 @@ const glob = require("glob");
  * @function readConfig
  * @return {Promise<Config>}
  */
-function normalizeConfig({chromeNum=2, targets=[], targetFiles=[], reporters=[]}){
-  const targetsFromFiles = getTargetList(targetFiles);
-  return { 
-    reporters,
+function normalizeConfig(config){
+  const {
     chromeNum,
-    targets: [...targets, ...targetsFromFiles]
+    chromeConfig,
+    lighthouseConfig,
+    targetFiles,
+    targets,
+    reporters
+  } = Object.assign(defaultConfig, config);
+  const targetsFromFiles = getTargetList(targetFiles);
+
+  return { 
+    chromeNum,
+    chromeConfig,
+    lighthouseConfig,
+    targets: [...targets, ...targetsFromFiles],
+    reporters
   };
 }
 
