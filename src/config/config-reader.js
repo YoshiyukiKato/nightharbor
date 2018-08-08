@@ -7,8 +7,7 @@ const glob = require("glob");
  * @function readConfig
  * @return {Promise<Config>}
  */
-function readConfig(configFilePath){
-  const {chromeNum=2, targets=[], targetFiles=[], reporters=[]} = require(configFilePath);
+function normalizeConfig({chromeNum=2, targets=[], targetFiles=[], reporters=[]}){
   const targetsFromFiles = getTargetList(targetFiles);
   return { 
     reporters,
@@ -29,7 +28,7 @@ function loadTargetList(targetConfigPath){
 };
 
 module.exports = {
-  readConfig,
+  normalizeConfig,
   getTargetList
 }
 
@@ -37,7 +36,7 @@ module.exports = {
  * lighthouse実行設定
  * @typedef Config
  * @prop {number} chromeNum
- * @prop {Target[]} targetList
+ * @prop {Target[]} targets
  * @prop {any[]} reporters 
  */
 
