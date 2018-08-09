@@ -14,6 +14,7 @@ class Context {
    */
   constructor(targets, reporters) {
     this.targets = targets;
+    this.results = [];
     this.reporters = reporters;
     this.reporters.forEach(reporter => reporter.open());
     this.progressBar = new cliProgress.Bar({}, cliProgress.Presets.shades_classic);
@@ -36,8 +37,17 @@ class Context {
    */
   addReport(target, lighthouseResult) {
     const result = new Result(target, lighthouseResult);
+    this.results.push(result);
     this.reporters.forEach(reporter => reporter.write(result));
     this.progressBar.increment();
+  }
+
+  /**
+   * 全lighthosue実行結果を返す
+   * @return {Result[]}
+   */
+  getResults(){
+    return this.results;
   }
 
   /**
@@ -46,6 +56,7 @@ class Context {
   close() {
     this.reporters.forEach(reporter => reporter.close());
     this.progressBar.stop();
+    return this;
   }
 }
 

@@ -1,8 +1,6 @@
-const config = {
+module.exports = {
   extends: 'lighthouse:default',
   settings: {
     onlyCategories: ['performance'],
   }
 };
-
-module.exports = config;
