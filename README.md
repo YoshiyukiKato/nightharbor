@@ -32,7 +32,7 @@ perfCollector.exec(config)
 
 ```js
 {
-  targets: [{ url: "https://target.site" }...],
+  targets: [{ url: "https://google.com" }...],
   reporters: [Reporter...],
   chromeNum: 2,
   chromeConfig: {chromeConfig},
@@ -50,6 +50,50 @@ The target object must contains `url` property as follows:
 
 ### reporters [required]
 Array of Reporter instance.
+
+#### use built-in reporters
+There are two built-in reporters; `JsonReporter` and `CsvReporter`.
+
+```js
+const {JsonReporter,CsvReporter} = require("perf-collector").reporter;
+
+module.exports = {
+  targets: [{ url: "https://google.com" }...],
+  reporters: [
+    new JsonReporter("path/to/output.json"),
+    new CsvReporter("path/to/output.csv")
+  ],
+  ...
+}
+```
+
+#### use custom reporters
+
+```js
+const {Reporter} = require("perf-collector").reporter;
+
+class MyReporter extends Reporter{
+  constructor(){
+    super();
+  }
+  open(){...}
+  write(){...}
+  close(){...}
+}
+```
+
+```js
+const MyReporter = require("path/to/my-reporter");
+
+{
+  targets: [{ url: "https://google.com" }...],
+  reporters: [
+    new MyReporter()
+  ],
+  ...
+}
+```
+
 
 ### chromeNum [option]
 Number of chromes to launch for running lighthouse.  
