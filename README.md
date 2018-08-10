@@ -48,6 +48,21 @@ The target object must contains `url` property as follows:
 { url: "https://google.com" }
 ```
 
+#### use csv target list
+```csv
+url
+https://google.com
+```
+
+```js
+const {readCsvTargetList} = require("perf-collector").config;
+
+module.exports = {
+  targets: readCsvTargetList("/path/to/*.csv"),
+  ...
+}
+```
+
 ### reporters [required]
 Array of Reporter instance.
 

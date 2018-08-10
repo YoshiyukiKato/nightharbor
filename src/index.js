@@ -1,12 +1,14 @@
-const {normalizeConfig} = require("./config/config-reader");
+const config = require("./config");
+const {normalizeConfig} = config;
 const {collectPerf} = require("./core");
 const reporter = require("./reporter");
 
-function exec(config){
-  return collectPerf(normalizeConfig(config));
+function exec(configData){
+  return collectPerf(normalizeConfig(configData));
 }
 
 module.exports = {
+  config,
   exec,
   reporter
 }
