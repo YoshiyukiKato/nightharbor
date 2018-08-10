@@ -1,7 +1,9 @@
 const Reporter = require("./reporter");
-const FileReporter = require("./file-reporter");
+const JsonReporter = require("./json-reporter");
+const CsvReporter = require("./csv-reporter");
 
 module.exports = {
   Reporter,
-  FileReporter
+  JsonReporter,
+  CsvReporter
 }
