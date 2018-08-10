@@ -41,7 +41,7 @@ perfCollector.exec(config)
 ```
 
 ### targets [required]
-Array of target to exec lighthouse. 
+Array of target to perform audits by lighthouse. 
 The target object must contains `url` property as follows:
 
 ```js
