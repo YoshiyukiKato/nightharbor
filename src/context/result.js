@@ -19,8 +19,7 @@ class Result {
   }
 
   getData(){
-    const data = Object.assign({}, this.target);
-    data["speed-index"] = this.audits["speed-index"];
+    const data = Object.assign(Object.assign({}, this.target), this.audits);
     return data;
   }
 }

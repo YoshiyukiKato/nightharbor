@@ -1,3 +1,4 @@
+#! /usr/bin/env node
 const path = require("path");
 const cli = require("commander");
 const {exec} = require("../src");
@@ -8,7 +9,7 @@ cli
   .option("-c, --config [path to config file]", "specify config file")
   .parse(process.argv);
 
-const configFilePath = path.resolve(process.cwd(), !!cli.config ? cli.config : "./perf.config.js");
+const configFilePath = path.resolve(process.cwd(), !!cli.config ? cli.config : "./lhk.config.js");
 const config = require(configFilePath);
 exec(config)
   .then()
