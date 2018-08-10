@@ -70,7 +70,7 @@ Array of Reporter instance.
 There are two built-in reporters; `JsonReporter` and `CsvReporter`.
 
 ```js
-const {JsonReporter,CsvReporter} = require("lhk").reporter;
+const {JsonReporter,CsvReporter} = require("lighthouse-keeper").reporter;
 
 module.exports = {
   targets: [{ url: "https://google.com" }...],
