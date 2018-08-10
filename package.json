@@ -4,7 +4,8 @@
   "version": "0.1.0",
   "author": "Yoshiyuki Kato",
   "bin": {
-    "perf": "bin/cli.js"
+    "crocus": "bin/cli.js",
+    "crcs": "bin/cli.js"
   },
   "dependencies": {
     "chrome-launcher": "^0.10.2",
