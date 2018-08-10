@@ -1,25 +1,25 @@
-# perf-collector
+# crocus
 A wrapper tool of [lighthouse](https://github.com/GoogleChrome/lighthouse) to collect multiple web-site performance data.
 
 ## use from cli
 ```terminal
-$ npm i -g perf-collector
+$ npm i -g crocus
 ```
 
 ```terminal
-$ perf --config [path to config]
+$ crocus --config [path to config]
 ```
 
 ## use from program
 ```terminal
-$ npm i perf-collector
+$ npm i crocus
 ```
 
 ```js
-const perfCollector = require("perf-collector");
+const crocus = require("crocus");
 const config = require("./path/to/config");
 
-perfCollector.exec(config)
+crocus.exec(config)
   .then((context) => {
     console.log(context.getResults());
   })
@@ -55,7 +55,7 @@ https://google.com
 ```
 
 ```js
-const {readCsvTargetList} = require("perf-collector").config;
+const {readCsvTargetList} = require("crocus").config;
 
 module.exports = {
   targets: readCsvTargetList("/path/to/*.csv"),
@@ -70,7 +70,7 @@ Array of Reporter instance.
 There are two built-in reporters; `JsonReporter` and `CsvReporter`.
 
 ```js
-const {JsonReporter,CsvReporter} = require("perf-collector").reporter;
+const {JsonReporter,CsvReporter} = require("crocus").reporter;
 
 module.exports = {
   targets: [{ url: "https://google.com" }...],
@@ -85,7 +85,7 @@ module.exports = {
 #### use custom reporters
 
 ```js
-const {Reporter} = require("perf-collector").reporter;
+const {Reporter} = require("crocus").reporter;
 
 class MyReporter extends Reporter{
   constructor(){

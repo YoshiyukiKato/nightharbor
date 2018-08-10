@@ -1,5 +1,5 @@
 {
-  "name": "perf",
+  "name": "crocus",
   "description": "collecting site performances by using lighthouse",
   "version": "0.1.0",
   "author": "Yoshiyuki Kato",
@@ -22,6 +22,10 @@
   },
   "license": "MIT",
   "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YoshiyukiKato/crocus"
+  },
   "scripts": {
     "test": "mocha --timeout 600000 --require intelli-espower-loader test/**/*.test.js"
   }
