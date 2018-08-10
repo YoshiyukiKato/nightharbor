@@ -1,25 +1,25 @@
-# crocus
+# lhk
 A wrapper tool of [lighthouse](https://github.com/GoogleChrome/lighthouse) to collect multiple web-site performance data.
 
 ## use from cli
 ```terminal
-$ npm i -g crocus
+$ npm i -g lhk
 ```
 
 ```terminal
-$ crocus --config [path to config]
+$ lhk --config [path to config]
 ```
 
 ## use from program
 ```terminal
-$ npm i crocus
+$ npm i lhk
 ```
 
 ```js
-const crocus = require("crocus");
+const lhk = require("lhk");
 const config = require("./path/to/config");
 
-crocus.exec(config)
+lhk.exec(config)
   .then((context) => {
     console.log(context.getResults());
   })
@@ -55,7 +55,7 @@ https://google.com
 ```
 
 ```js
-const {readCsvTargetList} = require("crocus").config;
+const {readCsvTargetList} = require("lhk").config;
 
 module.exports = {
   targets: readCsvTargetList("/path/to/*.csv"),
@@ -70,7 +70,7 @@ Array of Reporter instance.
 There are two built-in reporters; `JsonReporter` and `CsvReporter`.
 
 ```js
-const {JsonReporter,CsvReporter} = require("crocus").reporter;
+const {JsonReporter,CsvReporter} = require("lhk").reporter;
 
 module.exports = {
   targets: [{ url: "https://google.com" }...],
@@ -85,7 +85,7 @@ module.exports = {
 #### use custom reporters
 
 ```js
-const {Reporter} = require("crocus").reporter;
+const {Reporter} = require("lhk").reporter;
 
 class MyReporter extends Reporter{
   constructor(){

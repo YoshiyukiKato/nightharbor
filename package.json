@@ -1,11 +1,10 @@
 {
-  "name": "crocus",
-  "description": "collecting site performances by using lighthouse",
+  "name": "lhk",
+  "description": "collecting multiple web-site performances by using lighthouse",
   "version": "0.1.0",
   "author": "Yoshiyuki Kato",
   "bin": {
-    "crocus": "bin/cli.js",
-    "crcs": "bin/cli.js"
+    "lhk": "bin/cli.js"
   },
   "dependencies": {
     "chrome-launcher": "^0.10.2",
@@ -25,7 +24,7 @@
   "main": "src/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/YoshiyukiKato/crocus"
+    "url": "https://github.com/YoshiyukiKato/lhk"
   },
   "scripts": {
     "test": "mocha --timeout 600000 --require intelli-espower-loader test/**/*.test.js"
