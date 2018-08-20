@@ -35,7 +35,7 @@ lhk.exec(config)
   targets: [{ url: "https://google.com" }...],
   reporters: [Reporter...],
   chromeNum: 2,
-  chromeConfig: {chromeConfig},
+  puppeteerConfig: {puppeteerConfig},
   lighthouseConfig: {lighthouseConfig}
 }
 ```
