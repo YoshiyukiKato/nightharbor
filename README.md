@@ -114,15 +114,13 @@ const MyReporter = require("path/to/my-reporter");
 Number of chromes to launch for running lighthouse.  
 This parameter is optional. Default value is `1`;
 
-### chromeConfig [option]
-Object of options to launch chrome. See [config of Chrome Launcher](https://github.com/GoogleChrome/chrome-launcher/blob/master/docs/chrome-flags-for-tools.md)  
+### puppeteerConfig [option]
+Object of options to launch chrome via puppeteer. See [launch config of puppeteer](https://github.com/GoogleChrome/puppeteer/blob/v1.7.0/docs/api.md#puppeteerlaunchoptions)  
 This parameter is optional. Default value is follows:
 
 ```js
 {
-  chromeFlags: [
-    "--headless"
-  ]
+  headless: true
 }
 ```
 

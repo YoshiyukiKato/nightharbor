@@ -1,5 +1,7 @@
-const chromeLauncher = require('chrome-launcher');
+//const chromeLauncher = require('chrome-launcher');
 const defaultChromeConfig = require("./config/chrome-config");
+const puppeteer = require("puppeteer");
+const defaultPuppeteerConfig = require("./config/puppeteer-config");
 
 /**
  * 指定した数のchromeインスタンスを生成する
@@ -8,9 +10,9 @@ const defaultChromeConfig = require("./config/chrome-config");
  */
 exports.launchChromes = function (chromeConfig, chromeNum) {
   const chromes = [];
-  const config = Object.assign(defaultChromeConfig, chromeConfig);
+  const config = Object.assign(defaultPuppeteerConfig, chromeConfig);
   for (let i = 0; i < chromeNum; i++) {
-    chromes.push(chromeLauncher.launch(config));
+    chromes.push(puppeteer.launch(config));
   }
   return chromes;
 }
