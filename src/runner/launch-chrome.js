@@ -6,9 +6,8 @@ const defaultPuppeteerConfig = require("./config/puppeteer-config");
  * @param {number} chromeNum chromeインスタンスの数
  * @return {Chrome[]} chormeインスタンスの配列
  */
-exports.launchChromes = function (chromeConfig, chromeNum) {
+exports.launchChromes = function (config, chromeNum) {
   const chromes = [];
-  const config = Object.assign(defaultPuppeteerConfig, chromeConfig);
   for (let i = 0; i < chromeNum; i++) {
     chromes.push(puppeteer.launch(config));
   }

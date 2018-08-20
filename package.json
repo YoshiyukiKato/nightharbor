@@ -12,13 +12,16 @@
     "csv-load-sync": "^1.0.0",
     "csvtojson": "^2.0.6",
     "glob": "^7.1.2",
-    "lighthouse": "^3.0.1",
-    "puppeteer": "^1.7.0"
+    "lighthouse": "^3.0.1"
   },
   "devDependencies": {
     "intelli-espower-loader": "^1.0.1",
     "mocha": "^5.2.0",
-    "power-assert": "^1.6.0"
+    "power-assert": "^1.6.0",
+    "puppeteer": "^1.7.0"
+  },
+  "peerDependencies": {
+    "puppeteer": "*"
   },
   "license": "MIT",
   "main": "src/index.js",
