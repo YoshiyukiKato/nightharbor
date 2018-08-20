@@ -1,7 +1,7 @@
 {
   "name": "lighthouse-keeper",
   "description": "collecting multiple web-site performances by using lighthouse",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "author": "Yoshiyuki Kato",
   "bin": {
     "lhk": "bin/cli.js"
