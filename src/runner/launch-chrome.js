@@ -1,5 +1,3 @@
-//const chromeLauncher = require('chrome-launcher');
-const defaultChromeConfig = require("./config/chrome-config");
 const puppeteer = require("puppeteer");
 const defaultPuppeteerConfig = require("./config/puppeteer-config");
 
