@@ -8,7 +8,7 @@ const defaultConfig = require("./default-config");
 function normalizeConfig(config){
   const {
     chromeNum,
-    chromeConfig,
+    puppeteerConfig,
     lighthouseConfig,
     targets,
     reporters
@@ -16,7 +16,7 @@ function normalizeConfig(config){
 
   return { 
     chromeNum,
-    chromeConfig,
+    puppeteerConfig,
     lighthouseConfig,
     targets,
     reporters
