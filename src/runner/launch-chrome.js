@@ -1,5 +1,4 @@
 const puppeteer = require("puppeteer");
-const defaultPuppeteerConfig = require("./config/puppeteer-config");
 
 /**
  * 指定した数のchromeインスタンスを生成する
@@ -11,5 +10,5 @@ exports.launchChromes = function (config, chromeNum) {
   for (let i = 0; i < chromeNum; i++) {
     chromes.push(puppeteer.launch(config));
   }
-  return chromes;
+  return Promise.all(chromes);
 }

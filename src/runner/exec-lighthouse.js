@@ -1,4 +1,5 @@
 const lighthouse = require("lighthouse");
+const {launchChromes} = require("./launch-chrome");
 const {URL} = require("url");
 
 /**
@@ -6,27 +7,31 @@ const {URL} = require("url");
  * @param {Context} context 
  * @param {Chrome} chrome
  */
-function execLighthouse(lighthouseConfig, context, browser) {
-  const port = new URL(browser.wsEndpoint()).port;
-  const opts = {
-    port: port
-  }
-  const target = context.getNextTarget();
-  if (!!target) {
-    return lighthouse(target.url, opts, lighthouseConfig)
-      .then((result) => {
-        context.addReport(target, result);
-        return execLighthouse(lighthouseConfig, context, browser);
-      })
-      .catch((err) => {
-        return browser.close().then(() => {
-          throw err;
-        }).catch(() => {
+function execLighthouse(lighthouseConfig, puppeteerConfig, chromeNum, context) {
+  const targets = context.getNextTargets(chromeNum);
+  if (targets.length > 0) {
+    return launchChromes(puppeteerConfig, targets.length)
+      .then((browsers) => {
+        const works = browsers.map((browser, index) => {
+          const target = targets[index];
+          const port = new URL(browser.wsEndpoint()).port;
+          const opts = {
+            port: port
+          }
+          return lighthouse(target.url, opts, lighthouseConfig)
+            .then((result) => {
+              context.addReport(target, result);
+              return browser.close();
+            });
+        });
 
-        })
-      });
+        return Promise.all(works).then(() => {
+          return execLighthouse(lighthouseConfig, puppeteerConfig, chromeNum, context);
+        });
+      })
+      .then(() => context);
   } else {
-    return browser.close();
+    return context;
   }
 }
 
