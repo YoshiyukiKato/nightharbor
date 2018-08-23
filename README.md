@@ -1,5 +1,8 @@
 # lighthouse-keeper
-
+[![npm](https://img.shields.io/npm/v/lighthouse-keeper.svg)](https://www.npmjs.com/package/lighthouse-keeper)
+[![CircleCI](https://circleci.com/gh/YoshiyukiKato/lighthouse-keeper.svg?style=shield)](https://circleci.com/gh/YoshiyukiKato/lighthouse-keeper)
+[![codecov](https://codecov.io/gh/YoshiyukiKato/lighthouse-keeper/branch/master/graph/badge.svg)](https://codecov.io/gh/YoshiyukiKato/lighthouse-keeper)
+[![codebeat badge](https://codebeat.co/badges/1ae3874c-ce60-4e2f-a4ca-64d8b0cedc53)](https://codebeat.co/projects/github-com-yoshiyukikato-lighthouse-keeper-master)
 [![Greenkeeper badge](https://badges.greenkeeper.io/YoshiyukiKato/lighthouse-keeper.svg)](https://greenkeeper.io/)
 
 A wrapper tool of [lighthouse](https://github.com/GoogleChrome/lighthouse) to collect multiple web-site performance data.
