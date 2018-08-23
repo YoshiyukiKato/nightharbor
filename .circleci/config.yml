@@ -13,6 +13,7 @@ jobs:
           - v1-dependencies-
       - run: sudo npm install -g npm
       - run: sudo npm install -g greenkeeper-lockfile@2
+      - run: sudo npm install -g codecov
       - run: greenkeeper-lockfile-update
       - run: npm install
       - save_cache:
@@ -21,4 +22,5 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: mkdir test/outputs
       - run: npm test
+      - run: npm run report-coverage
       - run: greenkeeper-lockfile-upload
