@@ -1,4 +1,7 @@
 # lighthouse-keeper
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/YoshiyukiKato/lighthouse-keeper.svg)](https://greenkeeper.io/)
+
 A wrapper tool of [lighthouse](https://github.com/GoogleChrome/lighthouse) to collect multiple web-site performance data.
 
 ## use from cli
