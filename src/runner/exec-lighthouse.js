@@ -31,7 +31,7 @@ function execLighthouse(lighthouseConfig, puppeteerConfig, chromeNum, context) {
       })
       .then(() => context);
   } else {
-    return context;
+    return Promise.resolve(context);
   }
 }
 
