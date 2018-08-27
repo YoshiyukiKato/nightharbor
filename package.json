@@ -17,6 +17,7 @@
   "devDependencies": {
     "intelli-espower-loader": "^1.0.1",
     "mocha": "^5.2.0",
+    "nyc": "^12.0.2",
     "power-assert": "^1.6.0",
     "puppeteer": "^1.7.0"
   },
@@ -30,6 +31,7 @@
     "url": "https://github.com/YoshiyukiKato/lighthouse-keeper"
   },
   "scripts": {
-    "test": "mocha --timeout 600000 --require intelli-espower-loader test/**/*.test.js"
+    "test": "$(npm bin)/nyc $(npm bin)/mocha --timeout 600000 --require intelli-espower-loader test/**/*.test.js",
+    "report-coverage": "$(npm bin)/nyc report --reporter=text-lcov > coverage.lcov && codecov"
   }
 }

@@ -1,0 +1,26 @@
+version: 2
+jobs:
+  build:
+    context: common
+    docker:
+      - image: circleci/node:10-browsers
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-
+      - run: sudo npm install -g npm
+      - run: sudo npm install -g greenkeeper-lockfile@2
+      - run: sudo npm install -g codecov
+      - run: greenkeeper-lockfile-update
+      - run: npm install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - run: mkdir test/outputs
+      - run: npm test
+      - run: npm run report-coverage
+      - run: greenkeeper-lockfile-upload
