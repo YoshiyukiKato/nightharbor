@@ -1,4 +1,4 @@
-const {Reporter} = require("lighthouse-keeper").reporter;
+const Reporter = require("../reporter");
 
 class S3Reporter extends Reporter{
   constructor(s3, bucketName, key){

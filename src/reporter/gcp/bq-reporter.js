@@ -1,4 +1,4 @@
-const {Reporter} = require('./reporeter');
+const Reporter = require('./reporeter');
 
 class BQReporter extends Reporter{
   constructor(bq, projectId, datasetId, tableId){
