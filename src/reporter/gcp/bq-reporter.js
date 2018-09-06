@@ -22,7 +22,7 @@ class BQReporter extends Reporter{
   }
 
   close(){
-    this.bq
+    return this.bq
       .dataset(this.datasetId)
       .table(this.tableId)
       .insert(this.resultDataList)

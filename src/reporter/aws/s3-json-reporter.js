@@ -12,7 +12,7 @@ class S3JsonReporter extends S3Reporter{
 
   close(){
     this.body = JSON.stringify(this.bodyData);
-    super.close();
+    return super.close();
   }
 }
 

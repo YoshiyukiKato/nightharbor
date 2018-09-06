@@ -10,7 +10,7 @@ class S3Reporter extends Reporter{
   }
 
   close(){
-    this.s3.putObject({
+    return this.s3.putObject({
       Bucket: this.bucketName,
       Key: this.key,
       Body: this.body
