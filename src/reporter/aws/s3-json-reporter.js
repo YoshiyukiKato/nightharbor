@@ -6,6 +6,8 @@ class S3JsonReporter extends S3Reporter{
     this.bodyData = { results: [] };
   }
 
+  open(){}
+
   write(result){
     this.bodyData.results.push(result);
   }

@@ -1,5 +1,5 @@
 const fs = require("fs");
-const Reporter = require("./reporter");
+const Reporter = require("../reporter");
 
 /**
  * output result to json file

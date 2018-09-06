@@ -5,6 +5,8 @@ class S3CsvReporter extends S3Reporter{
     super(s3, bucketName, key);
   }
 
+  open(){}
+
   write(result){
     if(!this.headers){
       this.headers = Object.keys(result);
