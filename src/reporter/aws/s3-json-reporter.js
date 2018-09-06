@@ -7,7 +7,7 @@ class S3JsonReporter extends S3Reporter{
   }
 
   write(result){
-    this.bodyData.results.push(result.getData());
+    this.bodyData.results.push(result);
   }
 
   close(){

@@ -13,7 +13,7 @@ class Reporter{
 
   /**
    * 各ターゲットへのlighthouse実行結果レポーティング時に呼ばれる
-   * @param {Result} result
+   * @param {any} result
    */
   write(result){
     console.log(report);

@@ -16,13 +16,12 @@ class CsvReporter extends Reporter{
   }
 
   write(result){
-    const data = result.getData();
     if(!this.headers){
-      this.headers = Object.keys(data);
+      this.headers = Object.keys(result);
       this.ws.write(this.headers.join(",") + "\n");
     }
     const row = this.headers.map((header) => {
-      return data[header] || "";
+      return result[header] || "";
     }).join(",");
     this.ws.write(row + "\n");
   }

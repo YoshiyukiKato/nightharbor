@@ -6,13 +6,12 @@ class S3CsvReporter extends S3Reporter{
   }
 
   write(result){
-    const data = result.getData();
     if(!this.headers){
-      this.headers = Object.keys(data);
+      this.headers = Object.keys(result);
       this.body += (this.headers.join(",") + "\n");
     }
     this.body += (this.headers.map((header) => {
-      return data[header] || "";
+      return result[header] || "";
     }).join(",") + "\n");
   }
 }

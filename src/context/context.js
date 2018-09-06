@@ -1,4 +1,4 @@
-const Result = require("./result");
+const {generateResult} = require("./result-generator");
 const cliProgress = require('cli-progress');
 
 /**
@@ -21,8 +21,8 @@ class Context {
   }
 
   /**
-   * 次のlighthouse実行対象のデータを取得する
-   * @return {Target} 次のlighthouse実行対象オブジェクト
+   * get next lighthouse targets
+   * @return {Target[]} next targets
    */
   getNextTargets(targetNum=1) {
     const targets = [];
@@ -37,19 +37,17 @@ class Context {
   }
 
   /**
-   * lighthouse実行結果のレポーティングを行う。
-   * レポーティング処理は、Contextインスタンス生成時にコンストラクタに渡したreporterに移譲する
-   * @param {Target} target lighthouseの実行対象
-   * @param {{lhr}} lighthouseResult lighthouseの実行結果 
+   * pass result data to reporters. 
+   * @param {Target} target info about lighthouse target
+   * @param {{lhr}} lighthouseResult result of lighthouse execution for the target
    */
   addReport(target, lighthouseResult) {
-    const result = new Result(target, lighthouseResult);
-    this.reporters.forEach(reporter => reporter.write(result));
+    this.reporters.forEach(reporter => reporter.write(generateResult(target, lighthouseResult)));
     this.progressBar.increment();
   }
 
   /**
-   * lighthouse実行コンテクストを閉じる
+   * close execution context
    */
   close() {
     this.reporters.forEach(reporter => reporter.close());

@@ -1,4 +1,4 @@
-const Reporter = require('./reporeter');
+const Reporter = require('../reporter');
 
 class BQReporter extends Reporter{
   constructor(bq, projectId, datasetId, tableId){
@@ -14,9 +14,8 @@ class BQReporter extends Reporter{
   }
   
   write(result){
-    const data = result.getData();
-    const dataKeyParsed = Object.keys(data).reduce((dataKeyParsed, key) => {
-      dataKeyParsed[key.replace(/-/g, "_")] = data[key];
+    const dataKeyParsed = Object.keys(result).reduce((dataKeyParsed, key) => {
+      dataKeyParsed[key.replace(/-/g, "_")] = result[key];
       return dataKeyParsed;
     }, {});
     this.resultDataList.push(dataKeyParsed);
