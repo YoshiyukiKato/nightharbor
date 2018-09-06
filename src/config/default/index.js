@@ -3,8 +3,8 @@ const lighthouseConfig = require("./lighthouse-config");
 
 module.exports = {
   chromeNum: 1,
-  targetFiles: [],
   targets: [],
+  targetLoaders: [],
   reporters: [],
   puppeteerConfig,
   lighthouseConfig

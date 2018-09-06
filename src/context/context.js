@@ -2,7 +2,7 @@ const {generateResult} = require("./result-generator");
 const cliProgress = require('cli-progress');
 
 /**
- * 非同期的なlighthouse実行コンテクストを管理するクラス
+ * manage context of asynchronous lighthouse executions
  * @class
  * @name Context
  */
@@ -10,14 +10,29 @@ class Context {
   /**
    * @constructor
    * @param {Target[]} targets 
+   * @param {TargetLoader[]} targetLoaders
    * @param {Reporter} reporter 
    */
-  constructor(targets, reporters) {
+  constructor(targets, targetLoaders, reporters) {
     this.targets = targets;
+    this.targetLoaders = targetLoaders;
     this.reporters = reporters;
     this.reporters.forEach(reporter => reporter.open());
-    this.progressBar = new cliProgress.Bar({}, cliProgress.Presets.shades_classic);
-    this.progressBar.start(this.targets.length, 0);
+  }
+
+  /**
+   * initialize targets in context by exec registered loaders
+   * @return {Promise<Context>}
+   */
+  loadTargets(){
+    const loaderPromises = this.targetLoaders.map((targetLoader) => targetLoader.load());
+    return Promise.all(loaderPromises)
+      .then((results) => {
+        this.targets = this.targets.concat(results.reduce((acc, targets) => [...acc, ...targets], []));
+        this.progressBar = new cliProgress.Bar({}, cliProgress.Presets.shades_classic);
+        this.progressBar.start(this.targets.length, 0);
+        return this;
+      });
   }
 
   /**
