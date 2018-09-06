@@ -3,7 +3,7 @@ const AWS = require('aws-sdk');
 const BQ = require("@google-cloud/bigquery");
 const fs = require('fs-extra');
 const path = require('path');
-const S3rver = require('s3rver');
+const S3Local = require("./fixture/s3-local");
 const S3JsonReporter = require('../src/reporter/aws/s3-json-reporter');
 const S3CsvReporter = require('../src/reporter/aws/s3-json-reporter');
 const BQReporter = require("../src/reporter/gcp/bq-reporter");
@@ -11,45 +11,54 @@ const BQReporter = require("../src/reporter/gcp/bq-reporter");
 
 describe('reporters', () => {
   describe('AWS S3 reporters', () => {
-    var s3rver;
-    var s3;
-    var s3dir = path.resolve(__dirname, './outputs/s3');
-    var bucketName = 'test';
-    
-    before(() => {
-      const s3host = 'localhost';
-      const s3port = 4569;
+    const s3host = 'localhost';
+    const s3port = 4569;
+    const s3dir = path.resolve(__dirname, './outputs/s3');
+    const s3Local = new S3Local(s3host, s3port, s3dir);
+    const bucketName = 'test';
+    AWS.config.update({
+      endpoint: `http://${s3host}:${s3port}/${bucketName}`,
+      s3BucketEndpoint: true
+    });
+    const s3 = new AWS.S3();
 
+    before(() => {
       //refresh directory for s3
       fs.removeSync(s3dir);
       fs.mkdirpSync(s3dir);
       //start local s3
-      s3rver = new S3rver({
-        port: s3port,
-        hostname: s3host,
-        silent: false,
-        directory: s3dir
-      }).run((err) => {});
-      //setup for local s3
-      AWS.config.update({
-        endpoint: `http://${s3host}:${s3port}/${bucketName}`,
-        s3BucketEndpoint: true
-      });
-      s3 = new AWS.S3();
+      return s3Local.up()
+        .then(() => {
+          return s3.createBucket({ Bucket: bucketName }).promise();
+        });
     });
 
     after(() => {
-      //stop local s3
-      s3rver.close();
-      fs.removeSync(s3dir);
+      //teardown local s3
+      return s3Local.down()
+        .then(() => {
+          fs.removeSync(s3dir);
+        });
     });
     
     it('puts a report file to S3 by json', () => {
-      const reporeter = new S3JsonReporter(s3, bucketName, 'output.json')
+      const key = 'output.json'
+      const reporter = new S3JsonReporter(s3, bucketName, key);
+      const data = { message: "test" };
+      const expected = { results: [data] };
+      reporter.open();
+      reporter.write(data);
+      return reporter.close()
+        .then(() => {
+          return s3.getObject({ Bucket: bucketName, Key: key }).promise();
+        })
+        .then((result) => {
+          assert.deepEqual(expected, JSON.parse(result.Body.toString()));
+        });
     });
 
     it('puts a report file to s3 by csv', () => {
-      const reporter = new S3CsvReporter(s3, bucketName, 'output.csv')
+      const reporter = new S3CsvReporter(s3, bucketName, 'output.csv');
     });
   });
   
