@@ -18,7 +18,11 @@ describe('reporters', () => {
     const bucketName = 'test';
     AWS.config.update({
       endpoint: `http://${s3host}:${s3port}/${bucketName}`,
-      s3BucketEndpoint: true
+      s3BucketEndpoint: true,
+      credentials: new AWS.Credentials({ 
+        accessKeyId: "",
+        secretAccessKey: ""
+      })
     });
     const s3 = new AWS.S3();
 
