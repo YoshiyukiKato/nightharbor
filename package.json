@@ -1,7 +1,7 @@
 {
   "name": "lighthouse-keeper",
   "description": "collecting multiple web-site performances by using lighthouse",
-  "version": "0.4.0-alpha",
+  "version": "0.4.3",
   "author": "Yoshiyuki Kato",
   "bin": {
     "lhk": "bin/cli.js"
@@ -26,13 +26,16 @@
     "puppeteer": "*"
   },
   "license": "MIT",
-  "main": "src/index.js",
+  "main": "src",
   "repository": {
     "type": "git",
     "url": "https://github.com/YoshiyukiKato/lighthouse-keeper"
   },
   "scripts": {
     "test": "$(npm bin)/nyc $(npm bin)/mocha --timeout 600000 --require intelli-espower-loader test/**/*.test.js",
-    "report-coverage": "$(npm bin)/nyc report --reporter=text-lcov > coverage.lcov && codecov"
+    "report-coverage": "$(npm bin)/nyc report --reporter=text-lcov > coverage.lcov && codecov",
+    "release": "cp package.json src && npm publish src && rm src/package.json",
+    "release-a": "cp package.json src && npm publish src --tag alpha && rm src/package.json",
+    "release-b": "cp package.json src && npm publish src --tag beta && rm src/package.json"
   }
 }
