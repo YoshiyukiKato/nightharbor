@@ -1,10 +1,8 @@
 const {normalizeConfig} = require("./normalizer");
-const {readCsvTargetList} = require("./target-reader");
-const defaultConfig = require("./default-config");
+const defaultConfig = require("./default");
 
 
 module.exports = {
   defaultConfig,
-  normalizeConfig,
-  readCsvTargetList
+  normalizeConfig
 }

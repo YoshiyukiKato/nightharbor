@@ -1,44 +1,25 @@
-const defaultConfig = require("./default-config");
+const defaultConfig = require("./default");
+
 
 /**
  * normalize configuration
  * @function normalizeConfig
- * @return {Promise<Config>}
+ * @return {any}
  */
 function normalizeConfig(config){
-  const {
-    chromeNum,
-    puppeteerConfig,
-    lighthouseConfig,
-    targets,
-    reporters
-  } = Object.assign(defaultConfig, config);
+  return overrideConfig(
+    overrideConfig(defaultConfig, config),
+    {
+      puppeteerConfig: overrideConfig(defaultConfig.puppeteerConfig, config.puppeteerConfig),
+      lighthouseConfig: overrideConfig(defaultConfig.lighthouseConfig, config.lighthouseConfig)
+    }
+  );
+}
 
-  return { 
-    chromeNum,
-    puppeteerConfig,
-    lighthouseConfig,
-    targets,
-    reporters
-  };
+function overrideConfig(defaultConfig, customConfig){
+  return Object.assign(Object.assign({}, defaultConfig), customConfig);
 }
 
 module.exports = {
   normalizeConfig
 }
-
-/**
- * lighthouse result
- * @typedef Config
- * @prop {number} chromeNum
- * @prop {Target[]} targets
- * @prop {any[]} reporters 
- */
-
- /**
- * lighthouse target
- * @typedef Target
- * @prop {string} site_id
- * @prop {string} page_id
- * @prop {string} url
- */
