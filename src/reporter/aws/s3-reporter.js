@@ -14,7 +14,7 @@ class S3Reporter extends Reporter{
       Bucket: this.bucketName,
       Key: this.key,
       Body: this.body
-    }).promise();
+    }).promise().then();
   }
 }
 

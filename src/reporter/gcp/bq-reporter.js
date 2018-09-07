@@ -24,7 +24,8 @@ class BQReporter extends Reporter{
     return this.bq
       .dataset(this.datasetId)
       .table(this.tableId)
-      .insert(this.resultDataList);
+      .insert(this.resultDataList)
+      .then();
   }
 }
 
