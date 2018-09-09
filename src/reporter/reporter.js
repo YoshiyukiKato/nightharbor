@@ -1,30 +1,32 @@
+/* istanbul ignore file */
 /**
- * 結果の出力を行うクラス
  * @class
  * @name Reporter
  */
 class Reporter{
   /**
-   * 処理コンテクストの開始時に実行される
+   * will be called before all executions
+   * @return {void}
    */
   open(){
-    console.warn("open method was not implemented");
+    throw new Error("`open` method is not implemented");
   }
 
   /**
-   * 各ターゲットへのlighthouse実行結果レポーティング時に呼ばれる
-   * @param {Result} result
+   * will be called when a lighthouse execution completed
+   * @param {any} result
+   * @return {void}
    */
   write(result){
-    console.log(report);
-    console.warn("write method was not implemented");
+    throw new Error("`write` method is not implemented");
   }
 
   /**
-   * 処理コンテクストの終了時に実行される
+   * will be called after all executions
+   * @return {Promise}
    */
   close(){
-    console.warn("close method was not implemented");
+    throw new Error("`close` method is not implemented");
   }
 }
 

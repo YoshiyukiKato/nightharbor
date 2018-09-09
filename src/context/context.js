@@ -1,8 +1,8 @@
-const Result = require("./result");
+const {generateResult} = require("./result-generator");
 const cliProgress = require('cli-progress');
 
 /**
- * 非同期的なlighthouse実行コンテクストを管理するクラス
+ * manage context of asynchronous lighthouse executions
  * @class
  * @name Context
  */
@@ -10,19 +10,34 @@ class Context {
   /**
    * @constructor
    * @param {Target[]} targets 
+   * @param {TargetLoader[]} targetLoaders
    * @param {Reporter} reporter 
    */
-  constructor(targets, reporters) {
+  constructor(targets, targetLoaders, reporters) {
     this.targets = targets;
+    this.targetLoaders = targetLoaders;
     this.reporters = reporters;
     this.reporters.forEach(reporter => reporter.open());
-    this.progressBar = new cliProgress.Bar({}, cliProgress.Presets.shades_classic);
-    this.progressBar.start(this.targets.length, 0);
   }
 
   /**
-   * 次のlighthouse実行対象のデータを取得する
-   * @return {Target} 次のlighthouse実行対象オブジェクト
+   * initialize targets in context by exec registered loaders
+   * @return {Promise<Context>}
+   */
+  loadTargets(){
+    const loaderPromises = this.targetLoaders.map((targetLoader) => targetLoader.load());
+    return Promise.all(loaderPromises)
+      .then((results) => {
+        this.targets = this.targets.concat(results.reduce((acc, targets) => [...acc, ...targets], []));
+        this.progressBar = new cliProgress.Bar({}, cliProgress.Presets.shades_classic);
+        this.progressBar.start(this.targets.length, 0);
+        return this;
+      });
+  }
+
+  /**
+   * get next lighthouse targets
+   * @return {Target[]} next targets
    */
   getNextTargets(targetNum=1) {
     const targets = [];
@@ -37,19 +52,17 @@ class Context {
   }
 
   /**
-   * lighthouse実行結果のレポーティングを行う。
-   * レポーティング処理は、Contextインスタンス生成時にコンストラクタに渡したreporterに移譲する
-   * @param {Target} target lighthouseの実行対象
-   * @param {{lhr}} lighthouseResult lighthouseの実行結果 
+   * pass result data to reporters. 
+   * @param {Target} target info about lighthouse target
+   * @param {{lhr}} lighthouseResult result of lighthouse execution for the target
    */
   addReport(target, lighthouseResult) {
-    const result = new Result(target, lighthouseResult);
-    this.reporters.forEach(reporter => reporter.write(result));
+    this.reporters.forEach(reporter => reporter.write(generateResult(target, lighthouseResult)));
     this.progressBar.increment();
   }
 
   /**
-   * lighthouse実行コンテクストを閉じる
+   * close execution context
    */
   close() {
     this.reporters.forEach(reporter => reporter.close());

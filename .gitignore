@@ -1,3 +1,9 @@
+### envfile
+.env
+
+### gcp credential
+gcp-credential.json
+
 ### for test
 test/outputs
 

@@ -1,12 +1,17 @@
 const path = require("path");
-const {CsvReporter,JsonReporter} = require("../../src/reporter");
-const {readCsvTargetList} = require("../../src/config/target-reader");
-const targetPattern = path.resolve(__dirname, "./targets/*.csv");
+const TestTargetLoader = require("./test-target-loader");
+const CsvReporter = require("../../src/reporter/local/csv-reporter");
+const JsonReporter = require("../../src/reporter/local/json-reporter");
 const csvOutputPath = path.resolve(__dirname, "../outputs/result.csv");
 const jsonOutputPath = path.resolve(__dirname, "../outputs/result.json");
 
 module.exports = {
-  targets: readCsvTargetList([targetPattern]),
+  targets: [
+    { url: 'https://google.com'}
+  ],
+  targetLoaders:[
+    new TestTargetLoader()
+  ],
   reporters: [
     new CsvReporter(csvOutputPath),
     new JsonReporter(jsonOutputPath)

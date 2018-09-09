@@ -1,5 +1,5 @@
 const fs = require("fs");
-const Reporter = require("./reporter");
+const Reporter = require("../reporter");
 
 /**
  * output result to json file
@@ -19,7 +19,7 @@ class JsonReporter extends Reporter{
   write(result){
     const separator = this.isFirstDataWritten ? "," : "";
     this.isFirstDataWritten = true;
-    const reportJson = JSON.stringify(result.getData());
+    const reportJson = JSON.stringify(result);
     this.ws.write(separator + reportJson);
   }
 

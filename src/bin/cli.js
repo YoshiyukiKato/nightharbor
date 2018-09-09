@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 const path = require("path");
 const cli = require("commander");
-const {exec} = require("../src");
+const {exec} = require("../index.js");
 const {version} = require("../package.json");
 
 cli
