@@ -4,6 +4,9 @@
 ### gcp credential
 gcp-credential.json
 
+### dist
+dist
+
 ### for test
 test/outputs
 
