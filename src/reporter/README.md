@@ -4,7 +4,7 @@ Set array of reporters to use as `reporters` in your configuration as follows:
 
 ```js
 //your.config.js
-const JsonReporter = require("lighthouse-keeper/reporter/local/json-reporter");
+const JsonReporter = require("nightharbor/reporter/local/json-reporter");
 const CustomReporter = require("/path/to/custom-reporter");
 const jsonReporter = new JsonReporter("/path/to/output.json");
 const customReporter = new CustomReporter(/* some args */);
@@ -23,13 +23,13 @@ module.exports = {
 ### Local file
 #### report by json
 ```js
-const JsonReporter = require("lighthouse-keeper/reporter/local/json-reporter");
+const JsonReporter = require("nightharbor/reporter/local/json-reporter");
 const reporter = new JsonReporter("/path/to/output.json");
 ```
 
 #### report by csv
 ```js
-const CsvReporter = require("lighthouse-keeper/reporter/local/csv-reporter");
+const CsvReporter = require("nightharbor/reporter/local/csv-reporter");
 const reporter = new CsvReporter("/path/to/output.csv");
 ```
 
@@ -42,7 +42,7 @@ $ npm install --save aws-sdk
 #### report by json
 
 ```js
-const S3JsonReporter = require("lighthouse-keeper/reporter/aws/s3-json-reporter");
+const S3JsonReporter = require("nightharbor/reporter/aws/s3-json-reporter");
 const AWS = require("aws-sdk");
 AWS.config.update({/** your configuration */});
 const s3 = new AWS.S3();
@@ -52,7 +52,7 @@ const reporter = new S3JsonReporter(s3, "bucket name", "/path/to/output.csv");
 #### report by csv
 
 ```js
-const S3CsvReporter = require("lighthouse-keeper/reporter/aws/s3-csv-reporter");
+const S3CsvReporter = require("nightharbor/reporter/aws/s3-csv-reporter");
 const AWS = require("aws-sdk");
 AWS.config.update({/** your configuration */});
 const s3 = new AWS.S3();
@@ -65,7 +65,7 @@ $ npm install --save @google-cloud/bigquery
 ```
 
 ```js
-const BQReporter = require("lighthouse-keeper/reporter/gcp/bq-reporter");
+const BQReporter = require("nightharbor/reporter/gcp/bq-reporter");
 const BQ = require("@google-cloud/bigquery");
 const bq = new BQ({
   projectId: "gcp project id"

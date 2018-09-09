@@ -36,7 +36,7 @@
   "main": "src",
   "repository": {
     "type": "git",
-    "url": "https://github.com/YoshiyukiKato/lighthouse-keeper"
+    "url": "https://github.com/YoshiyukiKato/nightharbor"
   },
   "scripts": {
     "test": "$(npm bin)/nyc $(npm bin)/mocha --timeout 600000 --require intelli-espower-loader test/**/*.test.js",

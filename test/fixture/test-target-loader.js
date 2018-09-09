@@ -1,4 +1,4 @@
-const TargetLoader = require("../../src/target-loaders/target-loader");
+const TargetLoader = require("../../src/target-loader/target-loader");
 
 class TestTargetLoader extends TargetLoader{
   /**
