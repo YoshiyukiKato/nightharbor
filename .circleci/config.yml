@@ -21,6 +21,8 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: mkdir test/outputs
+      - run: echo $GCP_CREDENTIAL > ${HOME}/gcp-credential.json
+      - run: export GOOGLE_APPLICATION_CREDENTIALS=${HOME}/gcp-credential.json
       - run: npm test
       - run: npm run report-coverage
       - run: greenkeeper-lockfile-upload

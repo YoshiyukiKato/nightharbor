@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 class TargetLoader{
   /**
    * must be overriden

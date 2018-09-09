@@ -1,11 +1,12 @@
 const assert = require('power-assert');
 const AWS = require('aws-sdk');
 const BQ = require("@google-cloud/bigquery");
+const csv=require('csvtojson');
 const fs = require('fs-extra');
 const path = require('path');
 const S3Local = require("./fixture/s3-local");
 const S3JsonReporter = require('../src/reporter/aws/s3-json-reporter');
-const S3CsvReporter = require('../src/reporter/aws/s3-json-reporter');
+const S3CsvReporter = require('../src/reporter/aws/s3-csv-reporter');
 const BQReporter = require("../src/reporter/gcp/bq-reporter");
 
 
@@ -62,21 +63,50 @@ describe('reporters', () => {
     });
 
     it('puts a report file to s3 by csv', () => {
-      const reporter = new S3CsvReporter(s3, bucketName, 'output.csv');
+      const key = 'output.csv'
+      const reporter = new S3CsvReporter(s3, bucketName, key);
+      const data = { message: "test" };
+      const expected = [data];
+      reporter.open();
+      reporter.write(data);
+      return reporter.close()
+        .then(() => {
+          return s3.getObject({ Bucket: bucketName, Key: key }).promise();
+        })
+        .then((result) => {
+          return csv().fromString(result.Body.toString());
+        })
+        .then((result) => {
+          assert.deepEqual(expected, result);
+        });
     });
   });
   
   describe('GCP BQ reporters', () => {
-    it('sends report data to BQ', () => {
-      const bq = new BQ({
-        projectId: process.env.GCP_BQ_PROJECT_ID
-      });
-      const reporeter = new BQReporter(
-        bq,
-        process.env.GCP_BQ_PROJECT_ID,
-        process.env.GCP_BQ_DATASET,
-        process.env.GCP_BQ_TABLE
-      );
+    var bq = new BQ({
+      projectId: process.env.GCP_PROJECT_ID
+    });
+    var dataset = process.env.GCP_BQ_DATASET;
+    var table = process.env.GCP_BQ_TABLE;
+
+    before(() => {
+      return bq.dataset(dataset).createTable(table, { schema: "message:string" });
+    });
+    
+    it('sends report data to BQ with no error', () => {
+      const data = { message: "test" };
+      const expected = [[data]];
+      const reporter = new BQReporter(bq, dataset, table);
+      reporter.open();
+      reporter.write(data);
+      return reporter.close()
+        .then(() => {
+          assert(true);
+        });
+    });
+
+    after(() => {
+      return bq.dataset(dataset).table(table).delete();
     });
   });
 });

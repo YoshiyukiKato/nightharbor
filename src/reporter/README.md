@@ -1,5 +1,5 @@
 # reporter
-Reporter is module that outputs lighthouse execution result. Use built-in reporters, or define your custom reporters.  
+A Reporter outputs lighthouse execution result. Use built-in reporters, or define your custom reporters.  
 Set array of reporters to use as `reporters` in your configuration as follows:
 
 ```js

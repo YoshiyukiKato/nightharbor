@@ -1,33 +1,33 @@
-# lighthouse-keeper
+# nightharbor
 [![npm](https://img.shields.io/npm/v/lighthouse-keeper.svg)](https://www.npmjs.com/package/lighthouse-keeper)
 [![CircleCI](https://circleci.com/gh/YoshiyukiKato/lighthouse-keeper.svg?style=shield)](https://circleci.com/gh/YoshiyukiKato/lighthouse-keeper)
 [![codecov](https://codecov.io/gh/YoshiyukiKato/lighthouse-keeper/branch/master/graph/badge.svg)](https://codecov.io/gh/YoshiyukiKato/lighthouse-keeper)
 [![codebeat badge](https://codebeat.co/badges/1ae3874c-ce60-4e2f-a4ca-64d8b0cedc53)](https://codebeat.co/projects/github-com-yoshiyukikato-lighthouse-keeper-master)
 [![Greenkeeper badge](https://badges.greenkeeper.io/YoshiyukiKato/lighthouse-keeper.svg)](https://greenkeeper.io/)
 
-A wrapper tool of [lighthouse](https://github.com/GoogleChrome/lighthouse) to collect multiple web-site performance data.
+A wrapper tool of [lighthouse](https://github.com/GoogleChrome/lighthouse) simplifies configuration to collect multiple web-site performance data and to report results to anywhere you want.
 
 ## use from cli
 ```terminal
-$ npm i -g lighthouse-keeper
+$ npm i -g nightharbor
 ```
 
 ```terminal
-$ lhk --config [path to config]
+$ nhb --config [path to config]
 ```
 
 ## use from program
 ```terminal
-$ npm i lighthouse-keeper
+$ npm i nightharbor
 ```
 
 ```js
-const lhk = require("lighthouse-keeper");
+const nhb = require("nightharbor");
 const config = require("./path/to/config");
 
-lhk.exec(config)
-  .then((context) => {
-    console.log(context.getResults());
+nhb.exec(config)
+  .then(() => {
+    console.log("done");
   })
   .catch((err) => {
     console.error(err);
@@ -38,7 +38,7 @@ lhk.exec(config)
 
 ```js
 {
-  targets: [{ url: "https://google.com" }...],
+  targetLoaders: [TargetLoader...],
   reporters: [Reporter...],
   chromeNum: 2,
   puppeteerConfig: {puppeteerConfig},
@@ -46,75 +46,45 @@ lhk.exec(config)
 }
 ```
 
-### targets [required]
-Array of target to perform audits by lighthouse. 
-The target object must contains `url` property as follows:
+### targetLoaders [required]
+Array of TargetLoader instances. A TargetLoader has asynchronous `load` method that returns `Promise` of a list of lighthouse targets. A target must contains `url` property as follows:
 
 ```js
 { url: "https://google.com" }
 ```
 
-#### use csv target list
-```csv
-url
-https://google.com
-```
+
 
 ```js
-const {readCsvTargetList} = require("lighthouse-keeper").config;
+const SimpleTargetLoader = require("nightharbor/target-loader/simple-target-loader.js");
 
 module.exports = {
-  targets: readCsvTargetList("/path/to/*.csv"),
-  ...
+  //...
+  targetLoaders: [
+    new SimpleTargetLoader([
+      { url: "https://google.com" },
+      ...
+    ])
+  ]
+  //...
 }
 ```
 
 ### reporters [required]
-Array of Reporter instance.
-
-#### use built-in reporters
-There are two built-in reporters; `JsonReporter` and `CsvReporter`.
+Array of Reporter instances. A Reporter writes result of lighthouse execution data.
+In detial, please checkout [`./src/reporter`]()
 
 ```js
-const {JsonReporter,CsvReporter} = require("lighthouse-keeper").reporter;
+const JsonReporter = require("nightharbor/reporter/local/json-reporter");
 
 module.exports = {
   targets: [{ url: "https://google.com" }...],
   reporters: [
-    new JsonReporter("path/to/output.json"),
-    new CsvReporter("path/to/output.csv")
+    new JsonReporter("path/to/output.json")
   ],
   ...
 }
 ```
-
-#### use custom reporters
-
-```js
-const {Reporter} = require("lighthouse-keeper").reporter;
-
-class MyReporter extends Reporter{
-  constructor(){
-    super();
-  }
-  open(){...}
-  write(){...}
-  close(){...}
-}
-```
-
-```js
-const MyReporter = require("path/to/my-reporter");
-
-{
-  targets: [{ url: "https://google.com" }...],
-  reporters: [
-    new MyReporter()
-  ],
-  ...
-}
-```
-
 
 ### chromeNum [option]
 Number of chromes to launch for running lighthouse.  
