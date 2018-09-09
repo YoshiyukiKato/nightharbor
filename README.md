@@ -53,7 +53,7 @@ Array of TargetLoader instances. A TargetLoader has asynchronous `load` method t
 { url: "https://google.com" }
 ```
 
-
+In case that you want to specify a target list manually, use `SimpleTargetLoader`.
 
 ```js
 const SimpleTargetLoader = require("nightharbor/target-loader/simple-target-loader.js");
@@ -78,7 +78,7 @@ In detial, please checkout [`./src/reporter`]()
 const JsonReporter = require("nightharbor/reporter/local/json-reporter");
 
 module.exports = {
-  targets: [{ url: "https://google.com" }...],
+  ...,
   reporters: [
     new JsonReporter("path/to/output.json")
   ],
