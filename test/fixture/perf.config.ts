@@ -1,10 +1,10 @@
-const path = require("path");
-const {SimpleTargetLoader} = require("../../dist/target-loader");
-const {CsvReporter,JsonReporter} = require("../../dist/reporter/local");
+import path from "path";
+import {SimpleTargetLoader} from "../../src/target-loader";
+import {CsvReporter,JsonReporter} from "../../src/reporter/local";
 const csvOutputPath = path.resolve(__dirname, "../outputs/result.csv");
 const jsonOutputPath = path.resolve(__dirname, "../outputs/result.json");
 
-module.exports = {
+export = {
   targetLoaders:[
     new SimpleTargetLoader([
       { url: 'https://google.com'}

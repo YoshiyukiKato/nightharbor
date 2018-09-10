@@ -1,6 +1,10 @@
-const S3rver = require('s3rver');
+import {Server} from "http";
+import S3rver from 's3rver';
 
-class S3Local{
+export class S3Local{
+  private process?: Server;
+  private s3rver: S3rver;
+
   constructor(s3host, s3port, s3dir){
     this.s3rver = new S3rver({
       hostname: s3host,
@@ -24,10 +28,12 @@ class S3Local{
 
   down(){
     return new Promise((resolve, reject) => {
-      this.process.close();
-      resolve();
+      if(this.process){
+        this.process.close();
+        resolve();
+      }else{
+        reject(new Error("process is not activated"));
+      }
     });
   }
 }
-
-module.exports = S3Local;

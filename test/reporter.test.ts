@@ -6,7 +6,7 @@ import path from "path";
 import assert from "power-assert";
 import {S3CsvReporter, S3JsonReporter} from "../src/reporter/aws";
 import {BqReporter} from "../src/reporter/gcp";
-import S3Local from "./fixture/s3-local";
+import {S3Local} from "./fixture/s3-local";
 
 describe("reporters", () => {
   describe("AWS S3 reporters", () => {
