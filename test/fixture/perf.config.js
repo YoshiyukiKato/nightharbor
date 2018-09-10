@@ -1,16 +1,16 @@
 const path = require("path");
-const TestTargetLoader = require("./test-target-loader");
-const CsvReporter = require("../../src/reporter/local/csv-reporter");
-const JsonReporter = require("../../src/reporter/local/json-reporter");
+const {SimpleTargetLoader} = require("../../dist/target-loader");
+const {CsvReporter,JsonReporter} = require("../../dist/reporter/local");
 const csvOutputPath = path.resolve(__dirname, "../outputs/result.csv");
 const jsonOutputPath = path.resolve(__dirname, "../outputs/result.json");
 
+console.log(CsvReporter);
+
 module.exports = {
-  targets: [
-    { url: 'https://google.com'}
-  ],
   targetLoaders:[
-    new TestTargetLoader()
+    new SimpleTargetLoader([
+      { url: 'https://google.com'}
+    ])
   ],
   reporters: [
     new CsvReporter(csvOutputPath),

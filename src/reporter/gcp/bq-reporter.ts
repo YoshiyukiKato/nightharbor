@@ -1,6 +1,6 @@
 import {IReporter} from "../../interface";
 
-export default class BQReporter implements IReporter {
+export default class BqReporter implements IReporter {
   private bq: any;
   private dataset: string;
   private table: string;

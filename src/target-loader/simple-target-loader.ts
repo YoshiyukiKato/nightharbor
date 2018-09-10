@@ -11,5 +11,3 @@ export default class SimpleTargetLoader implements ITargetLoader {
     return Promise.resolve(this.targets);
   }
 }
-
-module.exports = SimpleTargetLoader;

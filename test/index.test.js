@@ -1,5 +1,5 @@
 const assert = require("power-assert");
-const {exec} = require("..");
+const {exec} = require("../dist");
 const testConfig = require("./fixture/perf.config.js");
 
 

@@ -1,4 +1,3 @@
-
 import Context from "./context/context";
 import {IConfiguration} from "./interface";
 import {execLighthouse} from "./runner/exec-lighthouse";
