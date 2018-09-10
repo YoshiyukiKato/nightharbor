@@ -22,16 +22,15 @@ $ npm i nightharbor
 ```
 
 ```js
-const nhb = require("nightharbor");
-const config = require("./path/to/config");
+import nhb from "nightharbor";
+import config from "./path/to/config";
 
-nhb.exec(config)
-  .then(() => {
-    console.log("done");
-  })
-  .catch((err) => {
-    console.error(err);
-  });
+try{
+  await nhb.exec(config);
+  console.log("done");
+}catch(err){
+  console.error(err);
+}
 ```
 
 ## configuration
@@ -56,9 +55,9 @@ Array of TargetLoader instances. A TargetLoader has asynchronous `load` method t
 In case that you want to specify a target list manually, use `SimpleTargetLoader`.
 
 ```js
-const SimpleTargetLoader = require("nightharbor/target-loader/simple-target-loader.js");
+import {SimpleTargetLoader} from "nightharbor/target-loader";
 
-module.exports = {
+export default {
   //...
   targetLoaders: [
     new SimpleTargetLoader([
@@ -75,9 +74,9 @@ Array of Reporter instances. A Reporter writes result of lighthouse execution da
 In detial, please checkout [`./src/reporter`]()
 
 ```js
-const JsonReporter = require("nightharbor/reporter/local/json-reporter");
+import {JsonReporter} from "nightharbor/reporter/local";
 
-module.exports = {
+export default {
   ...,
   reporters: [
     new JsonReporter("path/to/output.json")

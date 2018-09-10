@@ -16,7 +16,7 @@ jobs:
       - run: sudo npm install -g codecov
       - run: greenkeeper-lockfile-update
       - run: npm install
-      - run: $(npm bin)/tsc --build tsconfig.json
+      - run: npm run build
       - save_cache:
           paths:
             - node_modules
