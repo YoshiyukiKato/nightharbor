@@ -1,7 +1,6 @@
-const assert = require("power-assert");
-const {exec} = require("../dist");
-const testConfig = require("./fixture/perf.config.js");
-
+import assert from "power-assert";
+import {exec} from "../src";
+import testConfig from "./fixture/perf.config.js";
 
 describe("collect perf", () => {
   it("runs with no error", () => {
