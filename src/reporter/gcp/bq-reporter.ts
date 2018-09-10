@@ -6,10 +6,10 @@ export default class BqReporter implements IReporter {
   private table: string;
   private resultDataList: any[];
 
-  constructor(bq: any, dataset: string, table: string) {
+  constructor(bq: any, dataset?: string, table?: string) {
     this.bq = bq;
-    this.dataset = dataset;
-    this.table = table;
+    this.dataset = dataset || "";
+    this.table = table || "";
     this.resultDataList = [];
   }
 
