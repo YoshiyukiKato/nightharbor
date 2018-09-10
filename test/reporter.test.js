@@ -5,9 +5,8 @@ const csv=require('csvtojson');
 const fs = require('fs-extra');
 const path = require('path');
 const S3Local = require("./fixture/s3-local");
-const S3JsonReporter = require('../src/reporter/aws/s3-json-reporter');
-const S3CsvReporter = require('../src/reporter/aws/s3-csv-reporter');
-const BQReporter = require("../src/reporter/gcp/bq-reporter");
+const {S3JsonReporter,S3CsvReporter} = require('../dist/reporter/aws');
+const {BqReporter} = require("../dist/reporter/gcp");
 
 
 describe('reporters', () => {
@@ -95,8 +94,7 @@ describe('reporters', () => {
     
     it('sends report data to BQ with no error', () => {
       const data = { message: "test" };
-      const expected = [[data]];
-      const reporter = new BQReporter(bq, dataset, table);
+      const reporter = new BqReporter(bq, dataset, table);
       reporter.open();
       reporter.write(data);
       return reporter.close()

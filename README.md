@@ -1,7 +1,7 @@
 # nightharbor
 [![npm](https://img.shields.io/npm/v/nightharbor.svg)](https://www.npmjs.com/package/nightharbor)
 [![CircleCI](https://circleci.com/gh/YoshiyukiKato/nightharbor.svg?style=shield)](https://circleci.com/gh/YoshiyukiKato/nightharbor)
-[![codecov](https://codecov.io/gh/YoshiyukiKato/nightharbor/branch/master/graph/badge.svg)](https://codecov.io/gh/YoshiyukiKato/nightharbor)
+<!--[![codecov](https://codecov.io/gh/YoshiyukiKato/nightharbor/branch/master/graph/badge.svg)](https://codecov.io/gh/YoshiyukiKato/nightharbor)-->
 [![codebeat badge](https://codebeat.co/badges/1ae3874c-ce60-4e2f-a4ca-64d8b0cedc53)](https://codebeat.co/projects/github-com-yoshiyukikato-nightharbor-master)
 [![Greenkeeper badge](https://badges.greenkeeper.io/YoshiyukiKato/nightharbor.svg)](https://greenkeeper.io/)
 
@@ -22,16 +22,12 @@ $ npm i nightharbor
 ```
 
 ```js
-const nhb = require("nightharbor");
-const config = require("./path/to/config");
+import nhb from "nightharbor";
+import config from "./path/to/config";
 
 nhb.exec(config)
-  .then(() => {
-    console.log("done");
-  })
-  .catch((err) => {
-    console.error(err);
-  });
+  .then(() => console.log("done"));
+  .catch(console.error);
 ```
 
 ## configuration
@@ -56,9 +52,9 @@ Array of TargetLoader instances. A TargetLoader has asynchronous `load` method t
 In case that you want to specify a target list manually, use `SimpleTargetLoader`.
 
 ```js
-const SimpleTargetLoader = require("nightharbor/target-loader/simple-target-loader.js");
+import {SimpleTargetLoader} from "nightharbor/target-loader";
 
-module.exports = {
+export default {
   //...
   targetLoaders: [
     new SimpleTargetLoader([
@@ -75,9 +71,9 @@ Array of Reporter instances. A Reporter writes result of lighthouse execution da
 In detial, please checkout [`./src/reporter`]()
 
 ```js
-const JsonReporter = require("nightharbor/reporter/local/json-reporter");
+import {JsonReporter} from "nightharbor/reporter/local";
 
-module.exports = {
+export default {
   ...,
   reporters: [
     new JsonReporter("path/to/output.json")
