@@ -39,7 +39,7 @@
     "reporting"
   ],
   "license": "MIT",
-  "main": "src",
+  "main": "index.js",
   "nyc": {
     "include": [
       "src/**/*.ts"
@@ -62,8 +62,8 @@
     "url": "https://github.com/YoshiyukiKato/nightharbor"
   },
   "scripts": {
-    "build": "$(npm bin)/tsc",
-    "watch": "$(npm bin)/tsc -w",
+    "build": "$(npm bin)/tsc --build tsconfig.json",
+    "watch": "$(npm bin)/tsc --build tsconfig.json -w",
     "test-with-cov": "$(npm bin)/nyc report --reporter=text-lcov > coverage.lcov npm test",
     "test": "$(npm bin)/nyc $(npm bin)/mocha --timeout 600000 --require intelli-espower-loader test/**/*.test.ts",
     "report-coverage": "codecov",
