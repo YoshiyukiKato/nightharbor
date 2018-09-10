@@ -1,7 +1,7 @@
 # nightharbor
 [![npm](https://img.shields.io/npm/v/nightharbor.svg)](https://www.npmjs.com/package/nightharbor)
 [![CircleCI](https://circleci.com/gh/YoshiyukiKato/nightharbor.svg?style=shield)](https://circleci.com/gh/YoshiyukiKato/nightharbor)
-[![codecov](https://codecov.io/gh/YoshiyukiKato/nightharbor/branch/master/graph/badge.svg)](https://codecov.io/gh/YoshiyukiKato/nightharbor)
+<!--[![codecov](https://codecov.io/gh/YoshiyukiKato/nightharbor/branch/master/graph/badge.svg)](https://codecov.io/gh/YoshiyukiKato/nightharbor)-->
 [![codebeat badge](https://codebeat.co/badges/1ae3874c-ce60-4e2f-a4ca-64d8b0cedc53)](https://codebeat.co/projects/github-com-yoshiyukikato-nightharbor-master)
 [![Greenkeeper badge](https://badges.greenkeeper.io/YoshiyukiKato/nightharbor.svg)](https://greenkeeper.io/)
 
@@ -25,12 +25,9 @@ $ npm i nightharbor
 import nhb from "nightharbor";
 import config from "./path/to/config";
 
-try{
-  await nhb.exec(config);
-  console.log("done");
-}catch(err){
-  console.error(err);
-}
+nhb.exec(config)
+  .then(() => console.log("done"));
+  .catch(console.error);
 ```
 
 ## configuration

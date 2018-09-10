@@ -4,8 +4,6 @@ const {CsvReporter,JsonReporter} = require("../../dist/reporter/local");
 const csvOutputPath = path.resolve(__dirname, "../outputs/result.csv");
 const jsonOutputPath = path.resolve(__dirname, "../outputs/result.json");
 
-console.log(CsvReporter);
-
 module.exports = {
   targetLoaders:[
     new SimpleTargetLoader([
