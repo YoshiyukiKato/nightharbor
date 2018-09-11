@@ -1,5 +1,5 @@
 import fs from "fs";
-import {IReporter} from "../../interface";
+import {IReporter} from "../interface";
 
 /**
  * output result to csv file

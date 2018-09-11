@@ -1,10 +1,10 @@
 # reporter
-A Reporter outputs lighthouse execution result. Use built-in reporters, or define your custom reporters.  
-Set array of reporters to use as `reporters` in your configuration as follows:
+A Reporter outputs lighthouse execution result. Use built-in reporters, external reporters, or your custom reporters. Set array of reporters to use as `reporters` in your configuration as follows:
 
 ```js
 //your.config.js
-import {JsonReporter} from "nightharbor/reporter/local";
+import {JsonReporter} from "nightharbor/reporter";
+import ExternalReporter from "[external reporter package]";
 import CustomReporter from "/path/to/custom-reporter";
 
 export default {
@@ -12,67 +12,33 @@ export default {
   ...
   reporters: [
     new JsonReporter("/path/to/output.json"),
+    new ExternalReporter(/* some args */),
     new CustomReporter(/* some args */)
   ]
 }
 ```
 
 ## Use built-in reporters
-### Local file
-#### report by json
 ```js
-import {JsonReporter} from "nightharbor/reporter/local";
+import {CsvReporter, JsonReporter} from "nightharbor/reporter";
 const reporter = new JsonReporter("/path/to/output.json");
+
+export default {
+  ...,
+  reporters: [
+    new CsvReporter("/path/to/output.csv"),
+    new JsonReporter("/path/to/output.json")
+  ],
+  ...
+}
 ```
 
-#### report by csv
-```js
-import {CsvReporter} from "nightharbor/reporter/local";
-const reporter = new CsvReporter("/path/to/output.csv");
-```
-
-### AWS S3
-
-```sh
-$ npm install --save aws-sdk
-```
-
-#### report by json
-
-```js
-import {S3JsonReporter} from "nightharbor/reporter/aws";
-import AWS from "aws-sdk";
-AWS.config.update({/** your configuration */});
-const s3 = new AWS.S3();
-const reporter = new S3JsonReporter(s3, "bucket name", "/path/to/output.csv");
-```
-
-#### report by csv
-
-```js
-import {S3CsvReporter} from "nightharbor/reporter/aws";
-import AWS from "aws-sdk";
-AWS.config.update({/** your configuration */});
-const s3 = new AWS.S3();
-const reporter = new S3CsvReporter(s3, "bucket name", "/path/to/output.csv");
-```
-
-### GCP BigQuery
-```sh
-$ npm install --save @google-cloud/bigquery
-```
-
-```js
-import {BqReporter} from "nightharbor/reporter/gcp";
-const BQ = require("@google-cloud/bigquery");
-const bq = new BQ({
-  projectId: "gcp project id"
-});
-const reporter = new BQReporter(bq, "dataset name", "table name");
-```
+## Use external reporters
+- [nightharbor-s3-reporeter](https://github.com/YoshiyukiKato/nightharbor-s3-reporter)
+- [nightharbor-bigquery-reporter](https://github.com/YoshiyukiKato/nightharbor-bigquery-reporter)
 
 ## Define custom reporter
-Please implement `open`, `write`, and `close` method.
+Implement `open`, `write`, and `close` method.
 
 ```js
 class CustomReporter{

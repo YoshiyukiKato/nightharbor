@@ -68,10 +68,10 @@ export default {
 
 ### reporters [required]
 Array of Reporter instances. A Reporter writes result of lighthouse execution data.
-In detial, please checkout [`./src/reporter`]()
+In detial, please checkout [`./src/reporter`](https://github.com/YoshiyukiKato/nightharbor/tree/master/src/reporter)
 
 ```js
-import {JsonReporter} from "nightharbor/reporter/local";
+import {JsonReporter} from "nightharbor/reporter";
 
 export default {
   ...,
