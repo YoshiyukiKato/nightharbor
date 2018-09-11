@@ -1,18 +1,19 @@
 import path from "path";
+import {CsvReporter,JsonReporter} from "../../src/reporter";
 import {SimpleTargetLoader} from "../../src/target-loader";
-import {CsvReporter,JsonReporter} from "../../src/reporter/local";
+
 const csvOutputPath = path.resolve(__dirname, "../outputs/result.csv");
 const jsonOutputPath = path.resolve(__dirname, "../outputs/result.json");
 
 export = {
-  targetLoaders:[
-    new SimpleTargetLoader([
-      { url: 'https://google.com'}
-    ])
-  ],
+  chromeNum: 1,
   reporters: [
     new CsvReporter(csvOutputPath),
     new JsonReporter(jsonOutputPath)
   ],
-  chromeNum: 1
+  targetLoaders: [
+    new SimpleTargetLoader([
+      { url: "https://google.com" },
+    ]),
+  ],
 };
