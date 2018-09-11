@@ -5,7 +5,7 @@
 [![codebeat badge](https://codebeat.co/badges/a8364cd6-325b-43db-a74a-1fe26add195f)](https://codebeat.co/projects/github-com-yoshiyukikato-nightharbor-master)
 [![Greenkeeper badge](https://badges.greenkeeper.io/YoshiyukiKato/nightharbor.svg)](https://greenkeeper.io/)
 
-A wrapper tool of [lighthouse](https://github.com/GoogleChrome/lighthouse) simplifies configuration to collect multiple web-site performance data and to report results to anywhere you want.
+A [lighthouse](https://github.com/GoogleChrome/lighthouse) batch executor providing simple configuration about targeting, execution, and reporting.
 
 ## use from cli
 ```terminal
@@ -43,13 +43,13 @@ nhb.exec(config)
 ```
 
 ### targetLoaders [required]
-Array of TargetLoader instances. A TargetLoader has asynchronous `load` method that returns `Promise` of a list of lighthouse targets. A target must contains `url` property as follows:
+Array of TargetLoader instances. A TargetLoader fetches a list of target items containing `url` property as follows:
 
 ```js
 { url: "https://google.com" }
 ```
 
-In case that you want to specify a target list manually, use `SimpleTargetLoader`.
+Use a built-in TargetLoader or define a custom TargetLoader. `SimpleTargetLoader` is a built-in one, enables you to specify a target list manually.
 
 ```js
 import {SimpleTargetLoader} from "nightharbor/target-loader";
@@ -65,6 +65,23 @@ export default {
   //...
 }
 ```
+
+To define custom TargetLoader, implement asynchronous `load` method that returns `Promise` of a list of lighthouse targets.
+
+```js
+class CustomLoader {
+  /**
+   * @return {Promise<{ url: string }[]>}
+   */
+  load(){
+    //some asynchronous fetch tasks such as read file and api request.
+    return Promise.resolve([
+      { url: "https://google.com" }
+    ]);
+  }
+}
+```
+
 
 ### reporters [required]
 Array of Reporter instances. A Reporter writes result of lighthouse execution data.
