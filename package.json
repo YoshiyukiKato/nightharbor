@@ -64,13 +64,12 @@
   "scripts": {
     "build": "$(npm bin)/tsc --build tsconfig.json",
     "watch": "$(npm bin)/tsc --build tsconfig.json -w",
-    "test-with-cov": "$(npm bin)/nyc report --reporter=text-lcov > coverage.lcov npm test",
-    "test": "$(npm bin)/nyc $(npm bin)/mocha --timeout 600000 --require intelli-espower-loader test/**/*.test.ts",
-    "report-coverage": "codecov",
+    "test": "$(npm bin)/nyc $(npm bin)/mocha --timeout 600000 test/**/*.test.ts",
+    "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "release": "npm run before-release && npm publish dist && npm run after-release ",
     "release-a": "npm run before-release && npm publish dist --tag alpha && npm run after-release ",
     "release-b": "npm run before-release && npm publish dist --tag beta && npm run after-release ",
-    "before-release": "cp {README.md,package.json} dist",
+    "before-release": "npm run build && cp {README.md,package.json} dist",
     "after-release": "rm dist/{README.md,package.json}"
   }
 }
