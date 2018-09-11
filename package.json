@@ -1,7 +1,7 @@
 {
   "name": "nightharbor",
   "description": "configure batch execution of lighthouse simply",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "author": "Yoshiyuki Kato",
   "bin": {
     "nightharbor": "bin/cli.js",
