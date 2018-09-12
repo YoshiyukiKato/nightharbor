@@ -3,9 +3,20 @@ jobs:
   build:
     context: common
     docker:
-      - image: circleci/node:10-browsers
+      - image: circleci/openjdk:10-jdk-node-browsers
+    environment:
+      - SONAR_SCANNER_VERSION: "3.2.0.1227"
     working_directory: ~/repo
     steps:
+      # setup sonar-scanner
+      - run: sudo apt-get update && sudo apt-get install -y wget
+      - run: wget https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${SONAR_SCANNER_VERSION}-linux.zip
+      - run: sudo apt-get remove -y wget && sudo apt-get purge
+      - run: unzip sonar-scanner-cli-${SONAR_SCANNER_VERSION}-linux
+      - run: sudo ln -s sonar-scanner-${SONAR_SCANNER_VERSION}-linux/bin/sonar-scanner /usr/bin/sonar-scanner
+      - run: ls /usr/bin
+      - run: sudo chmod +x /usr/bin/sonar-scanner
+      # checkout project
       - checkout
       - restore_cache:
           keys:
