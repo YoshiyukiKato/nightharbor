@@ -1,19 +1,25 @@
 version: 2
 jobs:
   build:
-    context: common
     docker:
-      - image: circleci/node:10-browsers
+      - image: circleci/openjdk:10-jdk-node-browsers
+    environment:
+      - SONAR_SCANNER_VERSION: "3.2.0.1227"
     working_directory: ~/repo
     steps:
       - checkout
+      # setup sonar-scanner
+      - run: sudo apt-get update && sudo apt-get install -y wget
+      - run: wget https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${SONAR_SCANNER_VERSION}-linux.zip
+      - run: sudo apt-get remove -y wget && sudo apt-get purge
+      - run: unzip sonar-scanner-cli-${SONAR_SCANNER_VERSION}-linux
+      - run: sudo chmod +x sonar-scanner-${SONAR_SCANNER_VERSION}-linux/bin/sonar-scanner
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "package.json" }}
           - v1-dependencies-
       - run: sudo npm install -g npm
       - run: sudo npm install -g greenkeeper-lockfile@2
-      - run: sudo npm install -g codecov
       - run: greenkeeper-lockfile-update
       - run: npm install
       - run: npm run build
@@ -22,7 +28,15 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: mkdir test/outputs
-      - run: echo ${GCP_CREDENTIAL} > ${HOME}/gcp-credential.json
-      - run: GOOGLE_APPLICATION_CREDENTIALS=${HOME}/gcp-credential.json npm test
+      - run: npm test
+      - run: |-
+          sonar-scanner-${SONAR_SCANNER_VERSION}-linux/bin/sonar-scanner \
+          -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
+          -Dsonar.organization=${SONAR_ORGANIZATION} \
+          -Dsonar.sources=./src \
+          -Dsonar.tests=./test \
+          -Dsonar.typescript.lcov.reportPaths=./coverage/lcov.info \
+          -Dsonar.host.url=${SONAR_HOST_URL} \
+          -Dsonar.login=${SONAR_TOKEN}
       - run: npm run report-coverage
       - run: greenkeeper-lockfile-upload
