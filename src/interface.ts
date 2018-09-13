@@ -1,5 +1,5 @@
 export interface IConfiguration {
-  targetLoaders: ILoader[];
+  loaders: ILoader[];
   reporters: IReporter[];
   chromeNum?: number;
   puppeteerConfig?: any;

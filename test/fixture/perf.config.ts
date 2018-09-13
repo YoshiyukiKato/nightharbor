@@ -7,13 +7,13 @@ const jsonOutputPath = path.resolve(__dirname, "../outputs/result.json");
 
 export = {
   chromeNum: 1,
-  reporters: [
-    new CsvReporter(csvOutputPath),
-    new JsonReporter(jsonOutputPath),
-  ],
-  targetLoaders: [
+  loaders: [
     new SimpleLoader([
       { url: "https://google.com" },
     ]),
+  ],
+  reporters: [
+    new CsvReporter(csvOutputPath),
+    new JsonReporter(jsonOutputPath),
   ],
 };
