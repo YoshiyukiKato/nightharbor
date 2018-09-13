@@ -20,7 +20,6 @@ jobs:
           - v1-dependencies-
       - run: sudo npm install -g npm
       - run: sudo npm install -g greenkeeper-lockfile@2
-      - run: sudo npm install -g codecov
       - run: greenkeeper-lockfile-update
       - run: npm install
       - run: npm run build
@@ -30,7 +29,6 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: mkdir test/outputs
       - run: npm test
-      - run: ls ./coverage
       - run: |-
           sonar-scanner-${SONAR_SCANNER_VERSION}-linux/bin/sonar-scanner \
           -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
