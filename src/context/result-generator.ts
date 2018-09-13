@@ -6,7 +6,7 @@
 
 export function generateResult(targetInfo: any, lighthouseResult: any) {
   const lighthouseAudits = extractAudits(lighthouseResult);
-  return (Object as any).assign((Object as any).assign({}, targetInfo), lighthouseAudits);
+  return Object.assign(Object.assign({}, targetInfo), lighthouseAudits);
 }
 
 function extractAudits(lighthouseResult: any) {

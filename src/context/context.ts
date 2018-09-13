@@ -1,3 +1,4 @@
+import { ILoader, IReporter, ITarget } from "../interface";
 import { generateResult } from "./result-generator";
 
 // import cliProgress from 'cli-progress';
@@ -8,21 +9,20 @@ import { generateResult } from "./result-generator";
  * @name Context
  */
 export default class Context {
-  private targets: any[];
-  private targetLoaders: any[];
-  private reporters: any[];
+  private targets: ITarget[];
+  private loaders: ILoader[];
+  private reporters: IReporter[];
 
   /**
    * @constructor
-   * @param {Target[]} targets
-   * @param {TargetLoader[]} targetLoaders
-   * @param {Reporter} reporter
+   * @param {ILoader[]} loaders
+   * @param {IReporter} reporter
    */
-  constructor(targetLoaders: any[], reporters: any[]) {
+  constructor(loaders: ILoader[], reporters: IReporter[]) {
     this.targets = [];
-    this.targetLoaders = targetLoaders;
+    this.loaders = loaders;
     this.reporters = reporters;
-    this.reporters.forEach((reporter: any) => reporter.open());
+    this.reporters.forEach((reporter: IReporter) => reporter.open());
   }
 
   /**
@@ -30,10 +30,10 @@ export default class Context {
    * @return {Promise<Context>}
    */
   public loadTargets() {
-    const loaderPromises = this.targetLoaders.map((targetLoader) => targetLoader.load());
+    const loaderPromises = this.loaders.map((loader: ILoader) => loader.load());
     return Promise.all(loaderPromises)
       .then((results: any[]) => {
-        this.targets = this.targets.concat(results.reduce((acc: any, targets: any[]) => [...acc, ...targets], []));
+        this.targets = results.reduce((acc: ITarget[], targets: ITarget[]) => [...acc, ...targets], []);
 //        this.progressBar = new cliProgress.Bar({}, cliProgress.Presets.shades_classic);
 //        this.progressBar.start(this.targets.length, 0);
         return this;
@@ -42,10 +42,10 @@ export default class Context {
 
   /**
    * get next lighthouse targets
-   * @return {Target[]} next targets
+   * @return {ITarget[]} next targets
    */
-  public getNextTargets(targetNum= 1) {
-    const targets: any[] = [];
+  public getNextTargets(targetNum= 1): ITarget[] {
+    const targets: ITarget[] = [];
     let target: any;
     for (let i = 0; i < targetNum; i++) {
       target = this.targets.shift();
@@ -61,8 +61,8 @@ export default class Context {
    * @param {Target} target info about lighthouse target
    * @param {{lhr}} lighthouseResult result of lighthouse execution for the target
    */
-  public addReport(target: any, lighthouseResult: any): void {
-    this.reporters.forEach((reporter: any) => reporter.write(generateResult(target, lighthouseResult)));
+  public addReport(target: ITarget, lighthouseResult: any): void {
+    this.reporters.forEach((reporter: IReporter) => reporter.write(generateResult(target, lighthouseResult)));
 //    this.progressBar.increment();
   }
 
@@ -70,7 +70,7 @@ export default class Context {
    * close execution context
    */
   public close() {
-    this.reporters.forEach((reporter: any) => reporter.close());
+    this.reporters.forEach((reporter: IReporter) => reporter.close());
 //    this.progressBar.stop();
     return this;
   }
