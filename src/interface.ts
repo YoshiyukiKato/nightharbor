@@ -1,5 +1,5 @@
 export interface IConfiguration {
-  targetLoaders: ITargetLoader[];
+  targetLoaders: ILoader[];
   reporters: IReporter[];
   chromeNum?: number;
   puppeteerConfig?: any;
@@ -16,6 +16,6 @@ export interface ITarget {
   url: string;
 }
 
-export interface ITargetLoader {
+export interface ILoader {
   load(): Promise<ITarget[]>;
 }
