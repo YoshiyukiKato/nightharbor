@@ -1,6 +1,6 @@
-import {ITarget, ITargetLoader} from "../interface";
+import {ILoader, ITarget} from "../interface";
 
-export default class SimpleTargetLoader implements ITargetLoader {
+export default class SimpleLoader implements ILoader {
   private targets: ITarget[];
 
   constructor(targets: ITarget[]) {

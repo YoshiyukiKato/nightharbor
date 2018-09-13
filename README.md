@@ -33,7 +33,7 @@ nhb.exec(config)
 
 ```js
 {
-  targetLoaders: [TargetLoader...],
+  loaders: [Loader...],
   reporters: [Reporter...],
   chromeNum: 2,
   puppeteerConfig: {puppeteerConfig},
@@ -41,22 +41,22 @@ nhb.exec(config)
 }
 ```
 
-### targetLoaders [required]
-Array of TargetLoader instances. A TargetLoader fetches a list of target items containing `url` property as follows:
+### loaders [required]
+Array of `Loader`s. A `Loader` fetches a list of target items containing `url` property as follows:
 
 ```js
 { url: "https://google.com" }
 ```
 
-Use a built-in TargetLoader or define a custom TargetLoader. `SimpleTargetLoader` is a built-in one, enables you to specify a target list manually.
+Use a built-in `Loader` or define a custom `Loader`. `SimpleLoader` is a built-in one, enables you to specify a target list manually.
 
 ```js
-import {SimpleTargetLoader} from "nightharbor/target-loader";
+import {SimpleLoader} from "nightharbor/loader";
 
 export default {
   //...
-  targetLoaders: [
-    new SimpleTargetLoader([
+  loaders: [
+    new SimpleLoader([
       { url: "https://google.com" },
       ...
     ])
@@ -65,7 +65,7 @@ export default {
 }
 ```
 
-To define custom TargetLoader, implement asynchronous `load` method that returns `Promise` of a list of lighthouse targets.
+To define custom `Loader`, implement asynchronous `load` method that returns `Promise` of a list of lighthouse targets.
 
 ```js
 class CustomLoader {
