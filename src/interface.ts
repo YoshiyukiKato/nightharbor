@@ -7,7 +7,6 @@ export interface IConfiguration {
 }
 
 export interface IReporter {
-  open(): void;
   write(result: any): void;
   close(): Promise<any>;
 }
