@@ -22,7 +22,6 @@ export default class Context {
     this.targets = [];
     this.loaders = loaders;
     this.reporters = reporters;
-    this.reporters.forEach((reporter: IReporter) => reporter.open());
   }
 
   /**
