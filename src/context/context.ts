@@ -1,7 +1,6 @@
+import cliProgress from "cli-progress";
 import { ILoader, IReporter, ITarget } from "../interface";
 import { generateResult } from "./result-generator";
-
-// import cliProgress from 'cli-progress';
 
 /**
  * manage context of asynchronous lighthouse executions
@@ -12,6 +11,7 @@ export default class Context {
   private targets: ITarget[];
   private loaders: ILoader[];
   private reporters: IReporter[];
+  private progressBar: cliProgress.Bar;
 
   /**
    * @constructor
@@ -22,7 +22,7 @@ export default class Context {
     this.targets = [];
     this.loaders = loaders;
     this.reporters = reporters;
-    this.reporters.forEach((reporter: IReporter) => reporter.open());
+    this.progressBar = new cliProgress.Bar({}, cliProgress.Presets.shades_classic);
   }
 
   /**
@@ -34,8 +34,7 @@ export default class Context {
     return Promise.all(loaderPromises)
       .then((results: any[]) => {
         this.targets = results.reduce((acc: ITarget[], targets: ITarget[]) => [...acc, ...targets], []);
-//        this.progressBar = new cliProgress.Bar({}, cliProgress.Presets.shades_classic);
-//        this.progressBar.start(this.targets.length, 0);
+        this.progressBar.start(this.targets.length, 0);
         return this;
       });
   }
@@ -63,7 +62,7 @@ export default class Context {
    */
   public addReport(target: ITarget, lighthouseResult: any): void {
     this.reporters.forEach((reporter: IReporter) => reporter.write(generateResult(target, lighthouseResult)));
-//    this.progressBar.increment();
+    this.progressBar.increment(1);
   }
 
   /**
@@ -71,7 +70,7 @@ export default class Context {
    */
   public close() {
     this.reporters.forEach((reporter: IReporter) => reporter.close());
-//    this.progressBar.stop();
+    this.progressBar.stop();
     return this;
   }
 }

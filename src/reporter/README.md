@@ -1,39 +1,22 @@
 # reporter
-A Reporter outputs lighthouse execution result. Use built-in reporters, external reporters, or your custom reporters. Set array of reporters to use as `reporters` in your configuration as follows:
+A Reporter outputs lighthouse execution result. Use built-in reporters, external reporters, or your custom reporters. Set array of reporters to use as `reporters` in your configuration.
 
+## Use built-in reporter
 ```js
-//your.config.js
-import {JsonReporter} from "nightharbor/reporter";
-import ExternalReporter from "[external reporter package]";
-import CustomReporter from "/path/to/custom-reporter";
-
-export default {
-  //other configurations
-  ...
-  reporters: [
-    new JsonReporter("/path/to/output.json"),
-    new ExternalReporter(/* some args */),
-    new CustomReporter(/* some args */)
-  ]
-}
-```
-
-## Use built-in reporters
-```js
-import {CsvReporter, JsonReporter} from "nightharbor/reporter";
-const reporter = new JsonReporter("/path/to/output.json");
+import {SimpleReporter} from "nightharbor/reporter";
+const reporter = new SimpleReporter();
 
 export default {
   ...,
   reporters: [
-    new CsvReporter("/path/to/output.csv"),
-    new JsonReporter("/path/to/output.json")
+    new SimpleReporter()
   ],
   ...
 }
 ```
 
 ## Use external reporters
+- [nightharbor-file-reporter](https://github.com/YoshiyukiKato/nightharbor-file-reporter)
 - [nightharbor-s3-reporeter](https://github.com/YoshiyukiKato/nightharbor-s3-reporter)
 - [nightharbor-bigquery-reporter](https://github.com/YoshiyukiKato/nightharbor-bigquery-reporter)
 
