@@ -1,7 +1,7 @@
 # nightharbor
 [![npm](https://img.shields.io/npm/v/nightharbor.svg)](https://www.npmjs.com/package/nightharbor)
-[![CircleCI](https://circleci.com/gh/YoshiyukiKato/nightharbor.svg?style=shield)](https://circleci.com/gh/YoshiyukiKato/nightharbor)
-[![sonarcloud badge](https://sonarcloud.io/api/project_badges/measure?project=YoshiyukiKato_nightharbor&metric=alert_status)](https://sonarcloud.io/api/project_badges/measure?project=YoshiyukiKato_nightharbor&metric=alert_status)
+[![CircleCI](https://circleci.com/gh/YoshiyukiKato/nightharbor.svg?style=svg)](https://circleci.com/gh/YoshiyukiKato/nightharbor)
+[![sonarcloud badge](https://sonarcloud.io/api/project_badges/measure?project=YoshiyukiKato_nightharbor&metric=alert_status)](https://sonarcloud.io/dashboard?id=YoshiyukiKato_nightharbor)
 [![Greenkeeper badge](https://badges.greenkeeper.io/YoshiyukiKato/nightharbor.svg)](https://greenkeeper.io/)
 
 A [lighthouse](https://github.com/GoogleChrome/lighthouse) batch executor providing simple configuration about targeting, execution, and reporting.
@@ -83,7 +83,7 @@ class CustomLoader {
 
 
 ### reporters [required]
-Array of Reporter instances. A Reporter writes result of lighthouse execution data.
+Array of `Reporter`s. A `Reporter` writes result of lighthouse execution.
 In detial, please checkout [`./src/reporter`](https://github.com/YoshiyukiKato/nightharbor/tree/master/src/reporter)
 
 ```js
