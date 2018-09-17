@@ -1,4 +1,3 @@
-#! /usr/bin/env node
 import cli from "commander";
 import path from "path";
 import {exec} from "../index.js";
@@ -10,7 +9,7 @@ cli
   .option("-c, --config [path to config file]", "specify config file")
   .parse(process.argv);
 
-const configFilePath = path.resolve(process.cwd(), !!cli.config ? cli.config : "./lhk.config.js");
+const configFilePath = path.resolve(process.cwd(), !!cli.config ? cli.config : "./nhb.config.js");
 const config: IConfiguration = require(configFilePath);
 
 exec(config)

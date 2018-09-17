@@ -1,6 +1,6 @@
 import path from "path";
 import {SimpleLoader} from "../../src/loader";
-import {CsvReporter, JsonReporter} from "../../src/reporter";
+import {SimpleReporter} from "../../src/reporter";
 
 const csvOutputPath = path.resolve(__dirname, "../outputs/result.csv");
 const jsonOutputPath = path.resolve(__dirname, "../outputs/result.json");
@@ -13,7 +13,6 @@ export = {
     ]),
   ],
   reporters: [
-    new CsvReporter(csvOutputPath),
-    new JsonReporter(jsonOutputPath),
+    new SimpleReporter(),
   ],
 };
