@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import cli from "commander";
 import path from "path";
 import {exec} from "../index.js";
