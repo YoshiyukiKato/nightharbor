@@ -26,14 +26,6 @@ Implement `open`, `write`, and `close` method.
 ```js
 class CustomReporter{
   /**
-   * will be called before all executions
-   * @return {void}
-   */
-  open(){
-    //do something
-  }
-
-  /**
    * will be called when a lighthouse execution completed
    * @param {any} result
    * @return {void}

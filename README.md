@@ -32,7 +32,7 @@ nhb.exec(config)
 ## configuration
 
 ```js
-{
+export default {
   loaders: [Loader...],
   reporters: [Reporter...],
   chromeNum: 2,
@@ -87,12 +87,12 @@ Array of `Reporter`s. A `Reporter` writes result of lighthouse execution.
 In detial, please checkout [`./src/reporter`](https://github.com/YoshiyukiKato/nightharbor/tree/master/src/reporter)
 
 ```js
-import {JsonReporter} from "nightharbor/reporter";
+import {SimpleReporter} from "nightharbor/reporter";
 
 export default {
   ...,
   reporters: [
-    new JsonReporter("path/to/output.json")
+    new SimpleReporter(["path/to/targets.json"])
   ],
   ...
 }
@@ -100,7 +100,7 @@ export default {
 
 ### chromeNum [option]
 Number of chromes to launch for running lighthouse.  
-This parameter is optional. Default value is `1`;
+This parameter is optional. Default value is `1`.
 
 ### puppeteerConfig [option]
 Object of options to launch chrome via puppeteer. See [launch config of puppeteer](https://github.com/GoogleChrome/puppeteer/blob/v1.7.0/docs/api.md#puppeteerlaunchoptions)  
