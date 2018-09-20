@@ -70,7 +70,7 @@ To define custom `Loader`, implement asynchronous `load` method that returns `Pr
 ```js
 class CustomLoader {
   /**
-   * @return {Promise<{ url: string }[]>}
+   * @return {Promise<{ url: string, [key: string]: any }[]>}
    */
   load(){
     //some asynchronous fetch tasks such as read file and api request.
