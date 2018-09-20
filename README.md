@@ -32,7 +32,7 @@ nhb.exec(config)
 ## configuration
 
 ```js
-{
+export default {
   loaders: [Loader...],
   reporters: [Reporter...],
   chromeNum: 2,
@@ -42,13 +42,16 @@ nhb.exec(config)
 ```
 
 ### loaders [required]
-Array of `Loader`s. A `Loader` fetches a list of target items containing `url` property as follows:
+Array of `Loader`s. A `Loader` imports a list of targets for lighthouse execution. An item of the target list must contains `url` as follows:
 
 ```js
 { url: "https://google.com" }
 ```
 
-Use a built-in `Loader` or define a custom `Loader`. `SimpleLoader` is a built-in one, enables you to specify a target list manually.
+Use built-in loaders, external loaders, and your custom loaders.
+
+#### Use built-in loader
+`SimpleLoader` is a built-in loader to specify a target list manually.
 
 ```js
 import {SimpleLoader} from "nightharbor/loader";
@@ -65,12 +68,17 @@ export default {
 }
 ```
 
+#### Use external loaders
+- [nightharbor-file-loader](https://github.com/YoshiyukiKato/nightharbor-file-loader)
+- [nightharbor-s3-loader](https://github.com/YoshiyukiKato/nightharbor-s3-loader)
+
+#### Define custom reporter
 To define custom `Loader`, implement asynchronous `load` method that returns `Promise` of a list of lighthouse targets.
 
 ```js
 class CustomLoader {
   /**
-   * @return {Promise<{ url: string }[]>}
+   * @return {Promise<{ url: string, [key: string]: any }[]>}
    */
   load(){
     //some asynchronous fetch tasks such as read file and api request.
@@ -81,26 +89,57 @@ class CustomLoader {
 }
 ```
 
-
 ### reporters [required]
 Array of `Reporter`s. A `Reporter` writes result of lighthouse execution.
-In detial, please checkout [`./src/reporter`](https://github.com/YoshiyukiKato/nightharbor/tree/master/src/reporter)
+Use built-in reporters, external reporters, or your custom reporters.
+
+#### Use built-in reporter
+`SimpleReporter` is a built-in reporter to output result to console.
 
 ```js
-import {JsonReporter} from "nightharbor/reporter";
+import {SimpleReporter} from "nightharbor/reporter";
 
 export default {
   ...,
   reporters: [
-    new JsonReporter("path/to/output.json")
+    new SimpleReporter()
   ],
   ...
 }
 ```
 
+#### Use external reporters
+- [nightharbor-file-reporter](https://github.com/YoshiyukiKato/nightharbor-file-reporter)
+- [nightharbor-s3-reporeter](https://github.com/YoshiyukiKato/nightharbor-s3-reporter)
+- [nightharbor-bigquery-reporter](https://github.com/YoshiyukiKato/nightharbor-bigquery-reporter)
+
+#### Define custom reporter
+Implement `open`, `write`, and `close` method.
+
+```js
+class CustomReporter{
+  /**
+   * will be called when a lighthouse execution completed
+   * @param {any} result
+   * @return {void}
+   */
+  write(result){
+    //do something
+  }
+
+  /**
+   * will be called after all executions
+   * @return {Promise}
+   */
+  close(){
+    //do something
+  }
+}
+```
+
 ### chromeNum [option]
 Number of chromes to launch for running lighthouse.  
-This parameter is optional. Default value is `1`;
+This parameter is optional. Default value is `1`.
 
 ### puppeteerConfig [option]
 Object of options to launch chrome via puppeteer. See [launch config of puppeteer](https://github.com/GoogleChrome/puppeteer/blob/v1.7.0/docs/api.md#puppeteerlaunchoptions)  

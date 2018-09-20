@@ -13,6 +13,7 @@ export interface IReporter {
 
 export interface ITarget {
   url: string;
+  [key: string]: string;
 }
 
 export interface ILoader {
