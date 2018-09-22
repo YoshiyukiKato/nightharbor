@@ -4,8 +4,8 @@
   "version": "0.8.0",
   "author": "Yoshiyuki Kato",
   "bin": {
-    "nightharbor": "bin/cli.js",
-    "nhb": "bin/cli.js"
+    "nightharbor": "lighthouse/bin/cli.js",
+    "nhb": "lighthouse/bin/cli.js"
   },
   "dependencies": {
     "cli-progress": "^2.0.0",

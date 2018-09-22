@@ -1,6 +1,5 @@
 import cliProgress from "cli-progress";
 import { ILoader, IReporter } from "../interface";
-import { generateResult } from "./result-generator";
 
 /**
  * manage context of asynchronous lighthouse executions
@@ -29,14 +28,12 @@ export default class Context<Target, Result> {
    * initialize targets in context by exec registered loaders
    * @return {Promise<Context>}
    */
-  public loadTargets(): Promise<Context<Target, Result>> {
+  public async loadTargets(): Promise<Context<Target, Result>> {
     const loaderPromises = this.loaders.map((loader: ILoader<Target>) => loader.load());
-    return Promise.all(loaderPromises)
-      .then((results: any[]) => {
-        this.targets = results.reduce((acc: Target[], targets: Target[]) => [...acc, ...targets], []);
-        this.progressBar.start(this.targets.length, 0);
-        return this;
-      });
+    const results = await Promise.all(loaderPromises);
+    this.targets = results.reduce((acc: Target[], targets: Target[]) => [...acc, ...targets], []);
+    this.progressBar.start(this.targets.length, 0);
+    return this;
   }
 
   /**
@@ -60,8 +57,8 @@ export default class Context<Target, Result> {
    * @param {Target} target info about lighthouse target
    * @param {Result} result result of lighthouse execution for the target
    */
-  public addReport(target: Target, result: Result): void {
-    this.reporters.forEach((reporter: IReporter<Result>) => reporter.write(generateResult(target, result)));
+  public addReport(report: any): void {
+    this.reporters.forEach((reporter: IReporter<Result>) => reporter.write(report));
     this.progressBar.increment(1);
   }
 

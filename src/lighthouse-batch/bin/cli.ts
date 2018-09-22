@@ -2,7 +2,7 @@
 import cli from "commander";
 import path from "path";
 import {exec} from "../index.js";
-import {IConfiguration} from "../interface.js";
+import {ILHConfiguration} from "../interface.js";
 import {version} from "../package.json";
 
 cli
@@ -11,7 +11,7 @@ cli
   .parse(process.argv);
 
 const configFilePath = path.resolve(process.cwd(), !!cli.config ? cli.config : "./nhb.config.js");
-const config: IConfiguration = require(configFilePath);
+const config: ILHConfiguration = require(configFilePath);
 
 exec(config)
   .then()
