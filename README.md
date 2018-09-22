@@ -72,7 +72,7 @@ export default {
 - [nightharbor-file-loader](https://github.com/YoshiyukiKato/nightharbor-file-loader)
 - [nightharbor-s3-loader](https://github.com/YoshiyukiKato/nightharbor-s3-loader)
 
-#### Define custom reporter
+#### Define custom loader
 To define custom `Loader`, implement asynchronous `load` method that returns `Promise` of a list of lighthouse targets.
 
 ```js
