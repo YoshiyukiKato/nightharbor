@@ -63,7 +63,7 @@
     "release": "npm run before-release && npm publish dist && npm run after-release ",
     "release-a": "npm run before-release && npm publish dist --tag alpha && npm run after-release ",
     "release-b": "npm run before-release && npm publish dist --tag beta && npm run after-release ",
-    "before-release": "npm run build && cp {README.md,package.json} dist",
+    "before-release": "npm test && npm run build && cp {README.md,package.json} dist",
     "after-release": "rm dist/{README.md,package.json}"
   }
 }
