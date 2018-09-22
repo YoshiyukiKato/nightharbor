@@ -1,6 +1,6 @@
 import {IReporter} from "../interface";
 
-export default class SimpleReporter implements IReporter {
+export default class SimpleReporter implements IReporter<any> {
   private results: any[];
   public constructor() {
     this.results = [];

@@ -2,7 +2,7 @@
 import cli from "commander";
 import path from "path";
 import {exec} from "../index.js";
-import {IConfiguration} from "../interface";
+import {IConfiguration} from "../interface.js";
 import {version} from "../package.json";
 
 cli

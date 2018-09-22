@@ -1,7 +1,7 @@
 import {normalizeConfig} from "./config/normalizer";
 import {collectPerf} from "./core";
-import {IConfiguration} from "./interface";
+import {ILHConfiguration} from "./interface";
 
-export function exec(config: IConfiguration) {
+export function exec(config: ILHConfiguration) {
   return collectPerf(normalizeConfig(config));
 }

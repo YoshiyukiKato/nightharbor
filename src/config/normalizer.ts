@@ -1,4 +1,4 @@
-import { IConfiguration } from "../interface";
+import { ILHConfiguration } from "../interface";
 import defaultConfig from "./default";
 
 /**
@@ -6,7 +6,7 @@ import defaultConfig from "./default";
  * @function normalizeConfig
  * @return {any}
  */
-export function normalizeConfig(config: IConfiguration) {
+export function normalizeConfig(config: ILHConfiguration) {
   return overrideConfig(
     overrideConfig(defaultConfig, config),
     {

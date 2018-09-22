@@ -1,5 +1,5 @@
 import Context from "./context/context";
-import {IConfiguration} from "./interface";
+import {ILHConfiguration} from "./interface";
 import {execLighthouse} from "./runner/exec-lighthouse";
 
 export function collectPerf({
@@ -8,7 +8,7 @@ export function collectPerf({
   chromeNum,
   puppeteerConfig,
   lighthouseConfig,
-}: IConfiguration): Promise<any> {
+}: ILHConfiguration): Promise<any> {
   const context = new Context(loaders, reporters);
   return context.loadTargets()
     .then(execLighthouse.bind(null, lighthouseConfig, puppeteerConfig, chromeNum))
