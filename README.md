@@ -35,7 +35,7 @@ nhb.exec(config)
 export default {
   loaders: [Loader...],
   reporters: [Reporter...],
-  chromeNum: 2,
+  batchSize: 2,
   puppeteerConfig: {puppeteerConfig},
   lighthouseConfig: {lighthouseConfig}
 }
@@ -137,7 +137,7 @@ class CustomReporter{
 }
 ```
 
-### chromeNum [option]
+### batchSize [option]
 Number of chromes to launch for running lighthouse.  
 This parameter is optional. Default value is `1`.
 

@@ -1,6 +1,7 @@
 export interface IConfiguration<Target, Result> {
   loaders: Array<ILoader<Target>>;
   reporters: Array<IReporter<Result>>;
+  batchSize?: number;
 }
 
 export interface IReporter<Result> {

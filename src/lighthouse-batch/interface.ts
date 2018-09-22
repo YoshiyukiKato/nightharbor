@@ -1,7 +1,6 @@
 import {IConfiguration} from "../interface";
 
 export interface ILHConfiguration extends IConfiguration<ILHTarget, any> {
-  chromeNum?: number;
   puppeteerConfig?: any;
   lighthouseConfig?: any;
 }

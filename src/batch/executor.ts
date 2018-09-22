@@ -3,7 +3,7 @@ import { IConfiguration } from "../interface";
 
 export default abstract class Executor<Target, Result> {
   public async execBatch(config: IConfiguration<Target, Result>, context: Context<Target, Result>) {
-    const targets = context.getNextTargets();
+    const targets = context.getNextTargets(config.batchSize);
     if (targets.length > 0) {
       for (const target of targets) {
         const report = await this.batchJob(config, target);
