@@ -1,5 +1,5 @@
 #!/bin/bash
-wget https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${SONAR_SCANNER_VERSION}-linux.zip
+wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-${SONAR_SCANNER_VERSION}-linux.zip
 unzip sonar-scanner-cli-${SONAR_SCANNER_VERSION}-linux
 sudo chmod +x sonar-scanner-${SONAR_SCANNER_VERSION}-linux/bin/sonar-scanner
 
