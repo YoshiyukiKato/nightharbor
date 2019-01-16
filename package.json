@@ -10,7 +10,7 @@
   "dependencies": {
     "cli-progress": "^2.0.0",
     "commander": "^2.17.0",
-    "lighthouse": "^3.0.1",
+    "lighthouse": "^4.0.0",
     "puppeteer": "^1.7.0"
   },
   "devDependencies": {
