@@ -11,7 +11,7 @@
     "cli-progress": "^2.0.0",
     "commander": "^2.17.0",
     "lighthouse": "^3.0.1",
-    "puppeteer": "^1.7.0"
+    "puppeteer": "^2.0.0"
   },
   "devDependencies": {
     "@types/cli-progress": "^1.8.0",
